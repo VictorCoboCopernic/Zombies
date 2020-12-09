@@ -8,11 +8,14 @@ window.onload = function (){
 }
 
 
-
 function InicioJuego(){
     let num1 = document.getElementById("numero1").value;
     let num2 = document.getElementById("numero2").value;
-        alert("val1 = " + num1 + " val2 = " + num2);
+if (num1>=5 && num1<=20 && num2>=5 && num2<=20 && num1 % 1 == 0 && num2 % 1 == 0){
+    alert("val1 = " + num1 + " val2 = " + num2);
+}else{
+    alert("ERROR");
+}
 
 
 
