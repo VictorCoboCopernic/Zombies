@@ -1,10 +1,20 @@
+let numero1 = document.getElementById("InicioJuego");numero1.addEventListener("click", InicioJuego);
+let numero2 = document.getElementById("InicioJuego");numero2.addEventListener("click", InicioJuego);
+
 window.onload = function (){
     /*Oculta los divs*/
     mostrarJuego.style.display ="none";
-    estadisticas.style.display ="none";
-
-    var NumFila = prompt("Introduce el numero de filas ").split(" , ");   
-    var NumColumna = prompt("Introduce el numero de columnas ").split(" , ");
-    
-    document.write("El numero de filas que has introducido es; " + NumFila + " El numero de columnas que has introducido es; " + NumColumna);
+    estadisticas.style.display ="none";  
 }
+
+
+
+function InicioJuego(){
+    let num1 = document.getElementById("numero1").value;
+    let num2 = document.getElementById("numero2").value;
+        alert("val1 = " + num1 + " val2 = " + num2);
+
+
+
+
+        }
