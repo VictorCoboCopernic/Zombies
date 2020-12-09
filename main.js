@@ -1,5 +1,5 @@
-let numero1 = document.getElementById("InicioJuego");numero1.addEventListener("click", InicioJuego);
-let numero2 = document.getElementById("InicioJuego");numero2.addEventListener("click", InicioJuego);
+let fila = document.getElementById("InicioJuego");fila.addEventListener("click", InicioJuego);
+let columna = document.getElementById("InicioJuego");columna.addEventListener("click", InicioJuego);
 
 window.onload = function (){
     /*Oculta los divs*/
@@ -9,12 +9,12 @@ window.onload = function (){
 
 
 function InicioJuego(){
-    let num1 = document.getElementById("numero1").value;
-    let num2 = document.getElementById("numero2").value;
-if (num1>=5 && num1<=20 && num2>=5 && num2<=20 && num1 % 1 == 0 && num2 % 1 == 0){
-    alert("val1 = " + num1 + " val2 = " + num2);
+    let Datofila = document.getElementById("fila").value;
+    let Datocolumna = document.getElementById("columna").value;
+if (Datofila>=5 && Datofila<=20 && Datocolumna>=5 && Datocolumna<=20 && Datofila % 1 == 0 && Datocolumna % 1 == 0){
+    alert("El numero introducido de Filas es; = " + Datofila + " El numero introducido de columnas es; = " + Datocolumna);
 }else{
-    alert("ERROR");
+    alert("Porfavor verifica los valores que has introducidos y vuelvelos a poner");
 }
 
 
