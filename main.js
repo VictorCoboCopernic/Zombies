@@ -1,20 +1,19 @@
-let fila = document.getElementById("InicioJuego");fila.addEventListener("click", InicioJuego);
-let columna = document.getElementById("InicioJuego");columna.addEventListener("click", InicioJuego);
-
-window.onload = function (){
+window.onload = function PreguntarMedida(){
     /*Oculta los divs*/
     mostrarJuego.style.display ="none";
     estadisticas.style.display ="none";  
+    let medida = prompt("Introduce la altura del tablero (entre 5 y 20)");
+    InicioJuego(medida);
 }
 
 
-function InicioJuego(){
-    let Datofila = document.getElementById("fila").value;
-    let Datocolumna = document.getElementById("columna").value;
-if (Datofila>=5 && Datofila<=20 && Datocolumna>=5 && Datocolumna<=20 && Datofila % 1 == 0 && Datocolumna % 1 == 0){
-    alert("El numero introducido de Filas es; = " + Datofila + " El numero introducido de columnas es; = " + Datocolumna);
+function InicioJuego(medida){
+if (medida>=5 && medida<=20 && medida % 1 == 0){
+    alert("La tabla creada es de " + medida + "x" + medida);
 }else{
-    alert("Porfavor verifica los valores que has introducidos y vuelvelos a poner");
+    alert("El valor introducido es incorrecto");
+    let medida = prompt("Introduce la altura del tablero (entre 5 y 20)");
+    InicioJuego(medida);
 }
 
 
