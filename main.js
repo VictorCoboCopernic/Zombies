@@ -14,6 +14,7 @@ window.onload = function PreguntarMedida(){
 function InicioJuego(medida){
 if (medida>=5 && medida<=20 && medida % 1 == 0){
     alert("La tabla creada es de " + medida + "x" + medida);
+    partida.iniciar(medida);
 }else{
     alert("El valor introducido es incorrecto");
     PreguntarMedida();  
