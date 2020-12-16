@@ -1,24 +1,19 @@
 let partida = {
-    medida_tabla = 5,
-    medida_casillas_tabla = 25,
-    tabla:[],
-    zombies: [], /*25% de medida_casillas_tabla*/
-    estrellas: [], /*= a medida_tabla*/
-
-	/*Funciones*/
-	
-    inicializar_tabla: function() {
-		for(let i = 0 ; i < medida_tabla; i ++)
-			tabla [i] = [];	
-		for(let j = 0; j < array.length;j++){
-			const element = array[j]
-		}			
-	},
-	
-    iniciar: function (medida) {
-        this.medida_tabla= medida;
-        this.medida_casillas_tabla = medida * medida;
-        this.inicializar_tabla();
-    },
-    pintar_tabla
+    zombie: [],
+    estrella:[],
+	mostrarTabla: function(medida){
+        let IdentificadorCasilla = 0 ;
+        let dibujarTabla = "<table>";
+        for (let i = 0; i < medida; i++){
+            dibujarTabla += "<tr>";
+            for (let j = 0; j < medida; j++){
+                dibujarTabla += "<td id=" + IdentificadorCasilla + "> g </td>";
+                IdentificadorCasilla+=1;
+                console.log(IdentificadorCasilla);
+            }
+            dibujarTabla += "</tr>";
+        }
+        dibujarTabla += "</table>";
+        document.getElementById("mostrarJuego").innerHTML = dibujarTabla;
+    },		
 }
