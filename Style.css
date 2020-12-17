@@ -1,12 +1,17 @@
-.confImput{
-    width: 30%;
-    text-align: center;
-}
+
+/*Configuracion del tablero a mostrar en la pagina index.html*/
 td {
     border: 1px solid black;
+	margin:auto;
+	padding:2%;
 }
 
 table {
-    border-spacing: 0;
-    border: 2px solid black;
+	border-collapse: collapse;
+    border: 1px solid black;
+	margin:auto;
+	width:50%;
+	height:10px;
+	text-align:center;
+	margin-top:2%;
 }

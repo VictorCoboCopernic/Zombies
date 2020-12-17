@@ -1,13 +1,13 @@
 let partida = {
-    zombie: [],
+    zombie:[],
     estrella:[],
-	mostrarTabla: function(medida){
+	mostrarTabla:function(medida){
         let IdentificadorCasilla = 0 ;
         let dibujarTabla = "<table>";
-        for (let i = 0; i < medida; i++){
-            dibujarTabla += "<tr>";
-            for (let j = 0; j < medida; j++){
-                dibujarTabla += "<td id=" + IdentificadorCasilla + "> g </td>";
+        for (let DibColumnas = 0; DibColumnas < medida; DibColumnas++){
+            dibujarTabla += "<tr id=" + IdentificadorCasilla + " >";
+            for (let DibFilas = 0; DibFilas < medida; DibFilas++){
+                dibujarTabla += "<td> g </td>";
                 IdentificadorCasilla+=1;
                 console.log(IdentificadorCasilla);
             }
