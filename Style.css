@@ -1,4 +1,10 @@
-
+#PreguntaUsuario{
+	width:50%;
+	height:205px;
+	border:1px solid black;
+	margin:auto;
+	text-align:center;
+}
 /*Configuracion del tablero a mostrar en la pagina index.html*/
 td {
     border: 1px solid black;
