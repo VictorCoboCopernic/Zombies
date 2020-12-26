@@ -4,41 +4,50 @@
     <link rel="stylesheet" type="text/css" href="Style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto David y Victor</title>
+    <title>Archivo en el escritorio</title>
 </head>
 <body>
 
+<!--
+
+-->
+<div id="cambiarLetras" class="PreguntaUsuario">
+	<h3>Introduce el valor de la posicion X</h3>
+	<input type="text" id="posicionX" placeholder="La posicion X es la columna">
+	<h3>Introduce el valor de la posicion Y</h3>
+	<input type="text" id="posicionY" placeholder="La posicion Y es la fila">
+	<br><br>
+	<button id="destaparCasilla"> DESTAPAR </button>
+</div>
 
 
 <!--
-    Este div que hemos creado es para
-    mostrar la tabla del juego y empezar a jugar. 
-    Buena suerte soldado!!!!
+    Este segundo div que hemos creado para ver el número de elementos totales y 
+    el número de elementos descubiertos, las vidas, la puntuación y las
+    estadísticas de las partidas.
 -->
-<div id="PreguntaUsuario">
-	<h3>Introduce el valor de la posicion X</h3>
-	<input type="text" id="posicionX">
-	<h3>Introduce el valor de la posicion Y</h3>
-	<input type="text" id="posicionY">
-	<button> DESTAPAR </button>
+<div id="estadisticas" class="EstadisticasPartida">
+<h3>Estadistidas de la partida actual</h3>
 </div>
+
 
 <div id="mostrarJuego">
 
 </div>
 
-<!--
-    Este segundo div que hemos para ver el número de elementos totales y 
-    el número de elementos descubiertos, las vidas, la puntuación y las
-    estadísticas de las partidas.
--->
-<div id="estadisticas">
-<h1>sdasdsd</h1>
-</div>
 
-<div id="tabla"></div>
+
+
+
+<!--<div id="tabla"></div>-->
 
     <script src="partida.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
+
+<!--
+Tenemos que preguntar al usuario que posicion quiere destapar es decir preguntar la posicion de la X y de la Y ,y mostrar si hay alguna letra diferente o solo a encontrado la misma letra entonces se le mostrara la gesta destapada es letra G.
+
+
+-->

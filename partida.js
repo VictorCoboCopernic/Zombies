@@ -16,4 +16,25 @@ let partida = {
         dibujarTabla += "</table>";
         document.getElementById("mostrarJuego").innerHTML = dibujarTabla;
     },		
+
+	inicializaMatriz:function(medida){
+		let tabla = [];
+			for(let i = 0; i < medida; i++){			        
+				tabla[i] = [];			        
+			}
+		return tabla;
+		console.log(i);
+	},		
+	
+/*
+	cambiarLetras:function(posicionX, posicionY){
+	let boton = document.getElementById("cambiarLetras");
+    boton.addEventListener("click" , destaparCasilla);			
+		this.posicionX = posicionX;
+		this.posicionY = posicionY; 
+		for(
+		
+		
+	},
+	*/
 }
