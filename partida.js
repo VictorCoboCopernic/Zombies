@@ -4,6 +4,7 @@
 let partida = {
     zombie:[],
     estrella:[],
+    tabla:[],
 	mostrarTabla:function(medida){
         let IdentificadorCasilla = 0 ;
         let dibujarTabla = "<table>";
@@ -23,10 +24,24 @@ let partida = {
 
 */
 	inicializaMatriz:function(medida){
+        let contadorEstrellas = 0 ;
+        let IdentificadorCasilla = 0 ;
         for(let i =0;i < medida; i++){
             this.tabla[i] = [];
             for(let j = 0; j < medida;j++ ){
-                this.tabla[i][j] = "g";
+                let estrellaAleatori = Math.floor(Math.random() * (medida-1));  
+                if (contadorEstrellas == medida){
+                    this.tabla[i][j] = " ";
+                }else if(((medida*medida)-IdentificadorCasilla)==(medida-contadorEstrellas)){
+                    this.tabla[i][j] = "e";
+                    contadorEstrellas+=1;
+                }else if (estrellaAleatori==0){
+                    this.tabla[i][j] = "e";
+                    contadorEstrellas+=1;
+                }else{
+                    this.tabla[i][j] = " ";
+                }
+                IdentificadorCasilla+=1;
             }
         }
         console.log(this.tabla)
