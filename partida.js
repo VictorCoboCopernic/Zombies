@@ -1,3 +1,6 @@
+/*
+
+*/
 let partida = {
     zombie:[],
     estrella:[],
@@ -16,15 +19,19 @@ let partida = {
         dibujarTabla += "</table>";
         document.getElementById("mostrarJuego").innerHTML = dibujarTabla;
     },		
+/*
 
+*/
 	inicializaMatriz:function(medida){
-		let tabla = [];
-			for(let i = 0; i < medida; i++){			        
-				tabla[i] = [];			        
-			}
-		return tabla;
-		console.log(i);
-	},		
+        for(let i =0;i < medida; i++){
+            this.tabla[i] = [];
+            for(let j = 0; j < medida;j++ ){
+                this.tabla[i][j] = "g";
+            }
+        }
+        console.log(this.tabla)
+    },
+	
 	
 /*
 	cambiarLetras:function(posicionX, posicionY){
