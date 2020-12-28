@@ -20,10 +20,17 @@ let partida = {
         dibujarTabla += "</table>";
         document.getElementById("mostrarJuego").innerHTML = dibujarTabla;
     },		
-/*
 
-*/
-	inicializaMatriz:function(medida){
+
+
+
+    inicializaMatriz:function(medida){
+        partida.rellenaEstrella(medida);
+        partida.rellenaZombie(medida);
+        console.log(this.tabla)
+    },
+    
+    rellenaEstrella:function(medida){
         let contadorEstrellas = 0 ;
         let IdentificadorCasilla = 0 ;
         for(let i =0;i < medida; i++){
@@ -44,8 +51,34 @@ let partida = {
                 IdentificadorCasilla+=1;
             }
         }
-        console.log(this.tabla)
     },
+    
+    
+    rellenaZombie:function(medida){
+        let contadorZombies = 0 ;
+        let IdentificadorCasilla = 0 ;
+        for(let i =0;i < medida; i++){
+            this.tabla[i] = [];
+            for(let j = 0; j < medida;j++ ){
+                let zombieAleatori = Math.floor(Math.random() * ((medida*medida)/4));
+                if(this.tabla[i][j] == "e"){
+                }else if (contadorZombies == ((medida*medida)/4)){
+                    this.tabla[i][j] = " ";
+                }else if(((medida*medida)-IdentificadorCasilla-medida)==(((medida*medida)/4)-contadorZombies)){
+                    this.tabla[i][j] = "z";
+                    contadorZombies+=1;
+                }else if (zombieAleatori==0){
+                    this.tabla[i][j] = "z";
+                    contadorZombies+=1;
+                }else{
+                    this.tabla[i][j] = " ";
+                }
+                IdentificadorCasilla+=1;
+            }
+        }
+    },
+    
+    
 	
 	
 /*
