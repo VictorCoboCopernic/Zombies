@@ -32,11 +32,11 @@ let partida = {
     
     rellenaEstrella:function(medida){
         let contadorEstrellas = 0 ;
-        let IdentificadorCasilla = 0 ;
+        let IdentificadorCasilla = 1 ;
         for(let i =0;i < medida; i++){
             this.tabla[i] = [];
             for(let j = 0; j < medida;j++ ){
-                let estrellaAleatori = Math.floor(Math.random() * (medida-1));  
+                let estrellaAleatori = Math.floor(Math.random() * (medida/4*3));  
                 if (contadorEstrellas == medida){
                     this.tabla[i][j] = " ";
                 }else if(((medida*medida)-IdentificadorCasilla)==(medida-contadorEstrellas)){
@@ -56,19 +56,21 @@ let partida = {
     
     
     rellenaZombie:function(medida){
+        let contadorEstrellas = 0 ;
         let contadorZombies = 0 ;
-        let IdentificadorCasilla = 0 ;
+        let IdentificadorCasilla = 1 ;
         for(let i =0;i < medida; i++){
             for(let j = 0; j < medida;j++ ){
                 //let zombieAleatori = Math.floor(Math.random() * ((medida*medida)/4));
                 if(this.tabla[i][j] == "e"){
+                    contadorEstrellas+=1;
                 }else if (contadorZombies == (Math.floor((medida*medida)/4))){
                     this.tabla[i][j] = " ";
-                }else if(((medida*medida)-IdentificadorCasilla-medida)<=((Math.floor((medida*medida)/4))-contadorZombies)){
+                }else if(((medida*medida)-IdentificadorCasilla)<=((Math.floor((medida*medida)/4))-contadorZombies)-(medida-contadorEstrellas)){
                     this.tabla[i][j] = "z";
                     contadorZombies+=1;
                 }else{
-                    let zombieAleatori = Math.floor(Math.random() * ((medida*medida)/4));
+                    let zombieAleatori = Math.floor(Math.random() * (((medida*medida/4*3)-medida)/(medida*medida/4)));
                     if (zombieAleatori==0){
                         this.tabla[i][j] = "z";
                         contadorZombies+=1;
