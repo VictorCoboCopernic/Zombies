@@ -28,8 +28,8 @@ let partida = {
         partida.rellenaRecompensa(medida);
         partida.rellenaEstrella(medida);
         partida.rellenaZombie(medida);
-        partida.rellenaGrass(medida);
-        console.log(this.tabla)
+        partida.rellenaGespa(medida);
+        console.log(this.tabla);
     },
     
     creaTabla:function(medida){
@@ -47,77 +47,42 @@ let partida = {
         let medidaRecompensa = 3 ;
         let BarcosObligatorios = 0 ;
         while(contadorRecompensa<totalRecompensa){
-            let randomMedidaRecompensa = Math.floor(Math.random() * 3) + 1;
+            let randomMedidaRecompensa = (Math.floor(Math.random() * 3) + 1);
             if(BarcosObligatorios==1){
                 let medidaRecompensa = randomMedidaRecompensa ;
+                console.log("medidaRecompensa = " + medidaRecompensa);
             }
             let randomX = Math.floor(Math.random() * medida);
             let randomY = Math.floor(Math.random() * medida);
-            let Orien = Math.floor(Math.random() * 4);
+            let Orien = Math.floor(Math.random() * 2);
             if((contadorRecompensa + medidaRecompensa) <=  totalRecompensa){
-                if(this.tabla[randomY][randomX] = " "){
+                if(this.tabla[randomY][randomX] == " "){
                     let correcte = 0 ;
-                    if(Orien==0){
-                        for(let i =0;i < medidaRecompensa; i++){
-                            if(this.tabla[randomY][randomX+i] = " "){
-                                if(correcte==medidaRecompensa){
-                                    this.tabla[randomY][randomX+i] = ("r" + medidaRecompensa)
-                                    contadorRecompensa+=1
-                                    medidaRecompensa-=1
-                                    if(medidaRecompensa==0){
-                                        let BarcosObligatorios = 1 ;
-                                    }
-                                }else{
-                                correcte+=1
-                                }
+                    for(let i =0;i < medidaRecompensa; i++){
+                        if(Orien==0){
+                            if(this.tabla[randomY][randomX+i] == " "){
+                                correcte+=1;
                             }
                         }
-                    }
-                    if(Orien==1){
-                        for(let i =0;i < medidaRecompensa; i++){
-                            if(this.tabla[randomY][randomX-i] = " "){
-                                if(correcte==medidaRecompensa){
-                                    this.tabla[randomY][randomX-i] = ("r" + medidaRecompensa)
-                                    contadorRecompensa+=1
-                                    medidaRecompensa-=1
-                                    if(medidaRecompensa==0){
-                                        let BarcosObligatorios = 1 ;
-                                    }
-                                }else{
-                                correcte+=1
-                                }
+                        if(Orien==1){
+                            if(this.tabla[randomY+i][randomX] == " "){
+                                correcte+=1;
                             }
                         }
-                    }
-                    if(Orien==2){
-                        for(let i =0;i < medidaRecompensa; i++){
-                            if(this.tabla[randomY+i][randomX] = " "){
-                                if(correcte==medidaRecompensa){
-                                    this.tabla[randomY+i][randomX] = ("r" + medidaRecompensa)
-                                    contadorRecompensa+=1
-                                    medidaRecompensa-=1
-                                    if(medidaRecompensa==0){
-                                        let BarcosObligatorios = 1 ;
-                                    }
-                                }else{
-                                correcte+=1
+                        if(correcte==medidaRecompensa){
+                            for(let i =0;i < medidaRecompensa; i++){
+                                if(Orien==0){
+                                    this.tabla[randomY][randomX+i] = ("r" + medidaRecompensa);
+                                    contadorRecompensa+=1;
+                                }
+                                if(Orien==1){
+                                    this.tabla[randomY+i][randomX] = ("r" + medidaRecompensa);
+                                    contadorRecompensa+=1;
                                 }
                             }
-                        }
-                    }
-                    if(Orien==3){
-                        for(let i =0;i < medidaRecompensa; i++){
-                            if(this.tabla[randomY-i][randomX] = " "){
-                                if(correcte==medidaRecompensa){
-                                    this.tabla[randomY-i][randomX] = ("r" + medidaRecompensa)
-                                    contadorRecompensa+=1
-                                    medidaRecompensa-=1
-                                    if(medidaRecompensa==0){
-                                        let BarcosObligatorios = 1 ;
-                                    }
-                                }else{
-                                correcte+=1
-                                }
+                            medidaRecompensa-=1;
+                            if(medidaRecompensa==0){
+                                let BarcosObligatorios = 1 ;
                             }
                         }
                     }
@@ -131,11 +96,12 @@ let partida = {
         while(contadorEstrellas<medida){
             let randomX = Math.floor(Math.random() * medida);
             let randomY = Math.floor(Math.random() * medida);
-            if(this.tabla[randomY][randomX] = " "){
+            if(this.tabla[randomY][randomX] == " "){
                 this.tabla[randomY][randomX] = "e";
-                contadorEstrellas+=1
+                contadorEstrellas+=1;
             }
         }
+            console.log(contadorEstrellas);
     },
     
     rellenaZombie:function(medida){
@@ -144,9 +110,9 @@ let partida = {
         while(contadorZombies<totalZombies){
             let randomX = Math.floor(Math.random() * medida);
             let randomY = Math.floor(Math.random() * medida);
-            if(this.tabla[randomY][randomX] = " "){
+            if(this.tabla[randomY][randomX] == " "){
                 this.tabla[randomY][randomX] = "z";
-                contadorZombies+=1
+                contadorZombies+=1 ;
             }
         }
     },
@@ -155,7 +121,7 @@ let partida = {
 
     
     
-    rellenaGrass:function(medida){
+    rellenaGespa:function(medida){
         for(let i =0;i < medida; i++){
             for(let j = 0; j < medida;j++ ){
                 if(this.tabla[i][j] == " "){
