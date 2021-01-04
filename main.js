@@ -6,8 +6,8 @@
 */
 window.onload = function(){
     /*Oculta los divs*/
-    estadisticas.style.display ="none";
-    setTimeout(PreguntarMedida, 250);
+   estadisticas.style.display ="none";
+   setTimeout(PreguntarMedida, 250);
 }
 
 /*
@@ -23,12 +23,13 @@ function PreguntarMedida(){
 /*
 	Funcion
 		- En esta funcion lo que hace es recoger el valor que el usuario a introducirlo y compararlo con los valores minimo y maximo. 
-		Si esta dentro de esos dos valores entonces se cargara la siguiente funcion que es mostrar la tabla y inicializar la matriz.
+		Si esta dentro de esos dos valores entonces se cargara la siguiente funcion que es mostrar la tabla y inicializar la matriz, a la vez de mostrar el div de Estadisticas.
 		En el caso de que el valor introducido no este entre los valores minimo y maximo, saldra un aviso comunicando al usuario que compruebe el valor introducido y volvera a realizar la pregunta , asi hasta que el usuario introduzca algun valor que este entre el minimo y el maximo.
 */
 function InicioJuego(medida){
     if (medida>=5 && medida<=20 && medida % 1 == 0){
         alert("La tabla creada es de " + medida + "x" + medida);
+		estadisticas.style.display ="block";
         partida.mostrarTabla(medida);
         partida.inicializaMatriz(medida);
     }else{

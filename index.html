@@ -8,39 +8,56 @@
 </head>
 <body>
 
-<!--
-
--->
-<div id="cambiarLetras" class="PreguntaUsuario">
-	<h3>Introduce el valor de la posicion X</h3>
-	<input type="text" id="posicionX" placeholder="La posicion X es la columna">
-	<h3>Introduce el valor de la posicion Y</h3>
-	<input type="text" id="posicionY" placeholder="La posicion Y es la fila">
-	<br><br>
-	<button id="destaparCasilla"> DESTAPAR </button>
-</div>
-
-
-<!--
-    Este segundo div que hemos creado para ver el número de elementos totales y 
-    el número de elementos descubiertos, las vidas, la puntuación y las
-    estadísticas de las partidas.
--->
-<div id="estadisticas" class="EstadisticasPartida">
-<h3>Estadistidas de la partida actual</h3>
-</div>
+	<!--
+		En este DIV le preguntamos al usuario.
+	-->
+	<div id="cambiarLetras" class="PreguntaUsuario">
+		<h3>Introduce el valor de la posicion X</h3>
+		<input type="text" id="posicionX" placeholder="La posicion X es la columna">
+		<h3>Introduce el valor de la posicion Y</h3>
+		<input type="text" id="posicionY" placeholder="La posicion Y es la fila">
+		<br><br>
+		<button id="destaparCasilla"> DESTAPAR </button>
+	</div>
 
 
-<div id="mostrarJuego">
+	<!--
+		En este DIV mostramos informacion del juego al jugador 
+	-->
+	<div id="ContenedorSecundario">
+		<div class="InfoPartida">
+				<h3>Caracteristicas de la partida </h3>
+				<h5>El JUGADOR empezara la PARTIDA con 3 VIDAS y 0 PUNTOS </h5>
+				<p>
+					<ul>
+						<li>Si el JUGADOR encuentra un Zombi, perderá 1 VIDA y 100 PUNTOS </li>
+						<li>Si el JUGADOR se queda sin VIDAS, PIERDE LA PARTIDA</li>
+						<li>Si el JUGADOR encuentra todas las ESTRELLAS, GANA LA PARTIDA </li> 
+						<li>Si el JUGADOR encuentra una ESTRELLA, GANA 200 PUNTOS</li>
+						<li>El JUGADOR puede abandonar en cualquier momento y empezar una NUEVA PARTIDA</li>
+					</ul>
+				</p>
+		</div>		
+		
+	<!--
+		En este DIV se muestra las estadisticas de la partida actual
+	-->		
+		<div id="estadisticas" class="EstadisticasPartida">		
+			<h3>Estadisticas de la partida actual</h3>
+				
+		</div>
+	</div>
+	
+	<!--
+		En este DIV se muestra el tablero 
+	-->
+	<div id="mostrarJuego">
 
-</div>
+	</div>
+	
+	<!--
 
-
-
-
-
-<!--<div id="tabla"></div>-->
-
+	-->	
     <script src="partida.js"></script>
     <script src="main.js"></script>
 </body>
@@ -48,6 +65,4 @@
 
 <!--
 Tenemos que preguntar al usuario que posicion quiere destapar es decir preguntar la posicion de la X y de la Y ,y mostrar si hay alguna letra diferente o solo a encontrado la misma letra entonces se le mostrara la gesta destapada es letra G.
-
-
 -->
