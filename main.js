@@ -1,4 +1,4 @@
-//llama la funcion inicio cuando carga la página
+//llama la función inicio cuando carga la página
 
 window.onload = function(){
     //ComprovarLocal()
@@ -6,7 +6,7 @@ window.onload = function(){
 }
 
 /*
-Pregunta al usuario cual es la medida del tablero que quiere introducir y asigna valor a las variable medida, nEstrellas (número de estrellas) y nZombies (número de zombies) del objeto partida teniendo en cuenta el tamaño del tablero, finalmente ejecuta InicioJuego
+Pregunta al usuario qual es la medida del tablero que quiere introducir y asigna valor a las variables medida, nEstrellas (número de estrellas) y nZombies (número de zombies) del objeto partida teniendo en cuenta el tamaño del tablero, finalmente ejecuta InicioJuego
 */
 
 function PreguntarMedida(){ 
@@ -18,7 +18,7 @@ function PreguntarMedida(){
 }
 
 /*
-Esta función se encarga de comprovar si el valor introducido en medida se encuentra entre los valores aceptados (entre 5 y 20 sin contar decimales), si los datos son correctos, muestra los menús y ejecuta inicializaMatriz, si no se da el caso, muestra un mensaje de error y vuelve a preguntar la medida
+Esta función se encarga de comprobar si el valor introducido en medida se encuentra entre los valores aceptados (entre 5 y 20 sin contar decimales), si los datos son correctos, muestra los menús y ejecuta inicializaMatriz, si no se da el caso, muestra un mensaje de error y vuelve a preguntar la medida
 */
 
 function InicioJuego(medida){
@@ -52,7 +52,7 @@ function SumaVida(){
 }
 
 /*
-Cuando esta función se ejecuta, se aplican los efectos de Mitad Zombies: Cogemos el contador de zombies sin descubrir en partida y lo dividimos entre 2 (truncandolo) para saber el número de zombies que hemos de destapar, la función se encarga entonces de ir saltando entre posiciones aleatorias destapando zombies que encuentre tapados hasta que alcance el número definido
+Cuando esta función se ejecuta, se aplican los efectos de Mitad Zombies: Cogemos el contador de zombies sin descubrir en partida y lo dividimos entre 2 (truncándolo) para saber el número de zombies que hemos de destapar, la función se encarga entonces de ir saltando entre posiciones aleatorias destapando zombies que encuentre tapados hasta que alcance el número definido
 */
 
 function MeitatZombies(){

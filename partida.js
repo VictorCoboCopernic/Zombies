@@ -5,17 +5,16 @@ let partida = {
     vidas:3,
     puntos:0,
     medida:0,
-    BarcosObligatorios:0,
+    RecompensasObligatorias:0,
     nEstrellas:0,
     nZombies:0,
     medidaRecompensa:3,
     
     /*
-    Esta función se ejecuta cuando cargamos la pagina o abandonamos. Oculta los menús, reestablece las vidas y los puntos (y los muestra) y vacia la tabla, espera unos 250 milisegundos a que se cargue la página y entonces pregunta la medida del tablero
+    Esta función se ejecuta cuando cargamos la página o abandonamos. Oculta los menús, restablece las vidas y los puntos (y los muestra) y vacía la tabla, espera unos 250 milisegundos a que se cargue la página y entonces pregunta la medida del tablero
     */
     
     inicio:function(){
-    /*Oculta los divs*/
     estadisticas.style.display ="none";
     cambiarLetras.style.display ="none";
     this.tabla = []
@@ -27,7 +26,7 @@ let partida = {
 },
 
     /*
-    Esta función se encarga de dibujar (o redibujar) la tabla que se muuestra al usuario. Esta calca los valores que se encuentra en la consola a excepción de las casillas ocupadas por minusculas, estas las deja en blanco ya que deben estar ocultas
+    Esta función se encarga de dibujar (o redibujar) la tabla que se muestra al usuario. Esta calca los valores que se encuentra en la consola a excepción de las casillas ocupadas por minúsculas, estas las deja en blanco, ya que deben estar ocultas
     */
     
     mostrarTabla:function(){
@@ -47,7 +46,7 @@ let partida = {
     },		
 
 
-    //esta función ejecuta todas las funciones necesarias para crear la tabla
+    //Esta función ejecuta todas las funciones necesarias para crear la tabla
     
     inicializaMatriz:function(){
         this.creaTabla();
@@ -58,7 +57,7 @@ let partida = {
         console.log(this.tabla);
     },
     
-    //crea la tabla con la medida establecida y rellena las casillas con g
+    //Crea la tabla con la medida establecida y rellena las casillas con g
     
     creaTabla:function(){
         for(let i =0;i < this.medida; i++){
@@ -69,16 +68,30 @@ let partida = {
         }
     },
     
+    /*
+    Esta función se encarga de crear las recompensas
+    */
+    
     rellenaRecompensa:function(){
+        //totalRecompensa indica la cantidad total de casillas que deben estar ocupadas por recompensas
         let totalRecompensa = Math.floor((this.medida*this.medida)/4) ;
+        //contadorRecompensa indica la cantidad de casillas que llevamos ocupadas por recompensas
         let contadorRecompensa = 0 ;
         while(contadorRecompensa<totalRecompensa){
             
+            /*
+            Al iniciar el proceso, la medida de la recompensa a colocar es 3 esta va bajando cada vez que se coloca una (para tener como mínimo  una de cada tipo) y cuando llega a cero, se activa RecompensasObligatorias conforme ya se han creado todos los tipos necesarios y la medida para a ser aleatoria
+            */
+            
             let randomMedidaRecompensa = (Math.floor(Math.random() * 3) + 1);
-            if(this.BarcosObligatorios==1){
+            if(this.RecompensasObligatorias==1){
                 this.medidaRecompensa = randomMedidaRecompensa ;
             }
-            console.log("medidaRecompensa=" + this.medidaRecompensa + " BarcosObligatorios=" + this.BarcosObligatorios);
+            
+            /*
+            La función va asignando una orientación y coordenadas obligatorias, se comprueba  si todas las casillas que quedarían  ocupadas por una recompensa de la medida establecida están  libres (no quedan fuera de los márgenes  de la tabla), si todas ellas están  disponibles, se imprime la recompensa sobre la tabla y se suman las casillas ocupadas al contador, también se resta uno a la medida de la recompensa para cuando se coloque la próxima. Si la medida recompensa queda en cero, se activa RecompensasObligatorias para que la medida pase a ser aleatoria a partir de ahora
+            */
+            
             let randomX = Math.floor(Math.random() * this.medida);
             let randomY = Math.floor(Math.random() * this.medida);
             let Orien = Math.floor(Math.random() * 2);
@@ -125,7 +138,7 @@ let partida = {
                             }
                             this.medidaRecompensa-=1;
                             if(this.medidaRecompensa==0){
-                                this.BarcosObligatorios = 1 ;
+                                this.RecompensasObligatorias = 1 ;
                             }
                         }
                     }
@@ -168,27 +181,26 @@ let partida = {
     //Esta función se encarga de destapar la casilla que ha indicado el usuario
     
     destaparCasilla:function(){
-        //Cogemos las coordenadas que hemos recibido del usuario y las convertimos en integer que podamos manipular facilmente
-        console.log(this.medida);
+        //Cogemos las coordenadas que hemos recibido del usuario y las convertimos en integer que podamos manipular fácilmente
         var PosX = parseInt(document.getElementById("posicionX").value, 10);
         var PosY = parseInt(document.getElementById("posicionY").value, 10);
-        //vaciamos las casillas donde se han introducido los valores
+        //Vaciamos las casillas donde se han introducido los valores
         document.getElementById('posicionX').value = '';
         document.getElementById('posicionY').value = '';
         
         /*
-        Comprovamos si las coordenadas introducidas se encuentran dentro de la tabla (entre 0 y la medida de la tabla menos 1 sin contar decimales), si los datos son correctos, continua la ejecución, si no se da el caso, muestra un mensaje de error
+        Comprobamos si las coordenadas introducidas se encuentran dentro de la tabla (entre 0 y la medida de la tabla menos 1 sin contar decimales), si los datos son correctos, continua la ejecución, si no se da el caso, muestra un mensaje de error
         */
         if(PosX<0||PosY<0||PosX>(this.medida-1)||PosY>(this.medida-1)||PosX % 1 != 0||PosY % 1 != 0){
             alert("El valor introducido es incorrecto, comprueba que es un número entre 0 y " + (this.medida-1) + " y que no contiene decimales");
         }else{
             //Inicializamos un contador de las estrellas que nos quedan por destapar para saber cuanto nos queda hasta la victoria
             let contadorEstrella = this.medida;
-            //si la casilla que hemos introducido ya ha sido destapada, muestra un mensaje de error
+            //Si la casilla que hemos introducido ya ha sido destapada, muestra un mensaje de error
             if (["G","Z","E","D","M","V"].indexOf(this.tabla[PosY][PosX]) > -1){
                 alert("La casilla ya se ha destapado");
             }
-            //Si hemos caido en una g, destapa la casilla y suma 50 puntos
+            //Si hemos caído  en una g, destapa la casilla y suma 50 puntos
             if(this.tabla[PosY][PosX] == "g"){
                 this.tabla[PosY][PosX] = "G";
                 this.puntos+=50;
@@ -198,7 +210,7 @@ let partida = {
             }
             
             /*
-            Si hemos caido en una z, destapa la casilla y resta 100 puntos y 1 vida, si tienes menos de 100 puntos deja el marcador en cero y si te quedas sin vidas, muestra un mensaje de derrota, sumala al marcador y vuelve a iniciar una partida
+            Si hemos caido en una z, destapa la casilla y resta 100 puntos y 1 vida, si tienes menos de 100 puntos deja el marcador en cero y si te quedas sin vidas, muestra un mensaje de derrota, súmala al marcador y vuelve a iniciar una partida
             */
             
             if(this.tabla[PosY][PosX] == "z"){
@@ -223,7 +235,7 @@ let partida = {
             }
             
             /*
-            Si hemos caido en una e, destapa la casilla, suma 200 puntos y restale 1 al contador de estrellas que quedan por destapar, si el contador llega a 0, muestra un mensaje de victoria, sumala al marcador y vuelve a iniciar una partida
+            Si hemos caído  en una e, destapa la casilla, suma 200 puntos y réstale  1 al contador de estrellas que quedan por destapar, si el contador llega a 0, muestra un mensaje de victoria, súmala al marcador y vuelve a iniciar una partida
             */
             
             if(this.tabla[PosY][PosX] == "e"){
@@ -246,7 +258,7 @@ let partida = {
             }
             
             /*
-            Si hemos caido en una d significa que hemos activado la recompensa de duplicar la puntuación así que destapamos la casilla y ejecutamos la función
+            Si hemos caído en una d significa que hemos activado la recompensa de duplicar la puntuación así que destapamos la casilla y ejecutamos la función
             */
             
             if(this.tabla[PosY][PosX] == "d"){
@@ -257,7 +269,7 @@ let partida = {
             }
             
             /*
-            Si hemos caido en una m, destapa la casilla y comprueva si hay casillas adyacentes con M destapada, si se da el caso, significa que hemos activado la recompensa de eliminar la mitad de zombies ocultos así que ejecutamos la función
+            Si hemos caído en una m, destapa la casilla y comprueba si hay casillas adyacentes con M destapada, si se da el caso, significa que hemos activado la recompensa de eliminar la mitad de zombies ocultos así que ejecutamos la función
             */
             
             if(this.tabla[PosY][PosX] == "m"){
@@ -274,7 +286,7 @@ let partida = {
             }
             
             /*
-            Si hemos caido en una v, destapa la casilla y comprueva si forma parte de una linea de de tres V destapadas, si se da el caso, significa que hemos activado la recompensa de sumar una vida así que ejecutamos la función
+            Si hemos caído en una v, destapa la casilla y comprueba si forma parte de una línea de tres V destapadas, si se da el caso, significa que hemos activado la recompensa de sumar una vida así que ejecutamos la función
             */
             
             if(this.tabla[PosY][PosX] == "v"){
