@@ -8,14 +8,19 @@
 </head>
 <body>
 
-    
+    <!--
+		En este DIV le pedimos al usuario que ingrese la posicion de "x" y de "y" para descubrir la letra a la cual se le ha asignado esa casilla de forma aleatorio.
+	-->
     <div id="cambiarLetras" class="PreguntaUsuario">
-		<h3>Introduce las coordenadas</h3>
-		<input type="text" id="posicionX" placeholder="Columna">
-		<input type="text" id="posicionY" placeholder="Fila">
-		<br><br>
-		<button onclick="partida.destaparCasilla()">DESTAPA</button>
-        <button onclick="partida.inicio()">ABANDONA</button>
+		<h2>Introduce las coordenadas</h2>
+		<div id="cuadroimput">
+		<input type="text" id="posicionX" placeholder="Columna" class="imputColumna">
+		<input type="text" id="posicionY" placeholder="Fila" class="imputFila">
+		</div>
+		<div class="botones">
+		<button onclick="partida.destaparCasilla()" class="BotonDestapar">DESTAPA</button>
+        <button onclick="partida.inicio()" class="BotonAbandona ">ABANDONA</button>
+		</div>
 	</div>
 
 
@@ -24,8 +29,8 @@
 	-->
 	<div id="ContenedorSecundario">
 		<div class="InfoPartida">
-				<h3>Caracteristicas de la partida </h3>
-				<h5>El JUGADOR empezara la PARTIDA con 3 VIDAS y 0 PUNTOS </h5>
+				<h2>Caracteristicas de la partida </h2>
+				<h3>El JUGADOR empezara la PARTIDA con 3 VIDAS y 0 PUNTOS </h3>
 				<p>
 					<ul>
 						<li>Si el JUGADOR encuentra un Zombi, perderá 1 VIDA y 100 PUNTOS </li>
@@ -41,11 +46,15 @@
 		En este DIV se muestra las estadisticas de la partida actual
 	-->		
 		<div id="estadisticas" class="EstadisticasPartida">		
-			<h3>Estadisticas de la partida actual</h3>
-                <h3>Vidas</h3>
-                <div id="showVidas"></div>
-                <h3>Puntos</h3>
-                <div id="showPuntos"></div>
+			<h2>Estadisticas de la partida actual</h2>
+                <div class="mostrarEstadisticas">
+					<h4 id="showVidas" class="mostrarVidas"></h4>
+					<h4 class="cuadroVida">VIDAS</h4>
+                </div>
+				<div class="mostrarEstadisticas">
+					<h4 class="cuadroPuntos">PUNTOS</h4>
+					<h4 id="showPuntos" class="mostrarPuntuacion"></h4>
+				</div>
 		</div>
 	</div>
 	
@@ -59,6 +68,9 @@
 	<!--
 
 	-->	
+	<script src="zombie.js"></script>
+	<script src="estrella.js"></script>
+	<script src="element.js"></script>
     <script src="partida.js"></script>
     <script src="main.js"></script>
 </body>
