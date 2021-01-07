@@ -2,8 +2,7 @@
 	width:40%;
 	height:200px;
 	border:1px solid black;
-	margin-left:2.5%;
-	margin-top:2.5%;
+	margin-left:25%;
 	text-align:center;
 	float:left;
 	-webkit-border-radius: 500px;
@@ -11,35 +10,40 @@
 	border-radius: 500px;
 	background-color:#3CC;
 }
+/*Colocamos los dos inputs dentro de un rectangulo para que este a la misma altura */
 #cuadroimput{
 	width:100%;
 	height:35px;
 	text-align:left;
 }
+/*Le damos una configuracion especifica al input de Columna*/
 .imputColumna{
 	width:30%;
 	height:30px;
 	text-align:center;
 	margin-left:70px;
-	
 }
+/*Le damos una configuracion especifica al input de Fila*/
 .imputFila{
 	width:30%;
 	height:30px;
 	text-align:center;
 	margin-left:50px;
 }
-.botones{
+/*Creamos un rectangulo donde van a estar los dos botones juntos y los posiciones de una manera en particular a la que nosotros queremos */
+#botones{
 	width:100%;
 	height:35px;
 	text-align:left;
 	margin-top:4%;
 }
+/*Le damos una configuracion especifica al boton Destapar */
 .BotonDestapar{
   width:30%;
   height:35px;
   margin-left:73px;
 }
+/*Utilizamos el "hover" en el "botonDestapar" , lo usamos para que cuando pases el raton por encima del boton destaque sobre el otro y a la vez ayudar al usuario a saber donde esta su flecha del raton en todo momento*/ 
 .BotonDestapar:hover {
 	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   	-webkit-border-radius: 550px;
@@ -48,14 +52,15 @@
 	font-size:20px;
 	background-color:#6AE244;
 	color:white;
-	font-weight: bold;
+	font-weight: bold;/*Mostrar en negrita , asi se puede leer mejor */
 }
+/*Le damos una configuracion especifica al boton Abandona */
 .BotonAbandona{
   width:30%;
   height:35px; 
   margin-left:57px;
-  
 }
+/*Utilizamos el "hover" en el "botonabandona" , lo usamos para que cuando pases el raton por encima del boton destaque sobre el otro y a la vez ayudar al usuario a saber donde esta su flecha del raton en todo momento*/ 
 .BotonAbandona:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   	-webkit-border-radius: 100px;
@@ -64,42 +69,45 @@
 	font-size:20px;
 	background-color:#F30A0A;
 	color:white;
-
 }
-/*Configuracion del tablero a mostrar en la pagina index.html*/
-td {
-    border: 1px solid black;
-	margin:auto;
-	padding:2%;
-	width:15%;
-	height:35px;
-	font-size:25px;
-}
-
+/*Configuramos el tablero que se mostrara en el div "mostrarJuego"*/
 table {
+	width:1000px;
 	border-collapse: collapse;
     border: 5px solid black;
-	margin-left:2.5%;
-	width:50%;
+	margin-left:7.8%;
 	text-align:center;
 	margin-top:3%;
 	float:left;
 	margin-bottom:4%;
+	/*Esto nos permite hacer el efecto de sombra que sale por detras del borde de la tablero*/
 	-webkit-box-shadow: 0px 2px 14px 6px rgba(0,0,0,1);
 	-moz-box-shadow: 0px 2px 14px 6px rgba(0,0,0,1);
 	box-shadow: 0px 2px 14px 6px rgba(0,0,0,1);	
 }
+/*Le asignamos un tamaño de ancho y altura determinada a la vez que un tamaño exacto de letra */
+td {
+    border: 1px solid black;
+	margin:auto;
+	width:15px;
+	height:30px;
+	font-size:15px;
+}
+/*Este id lo utilizamos para poner dos cuadros en esta caja*/
 #ContenedorSecundario{
-	width:40%;
-	height:615px;
-	float:right;
+	width:95%;
+	height:290px;
+	float:left;
 	margin-top:2.5%;
 	margin-right:1.5%;	
-	margin-bottom:5%;
+	margin-left:1.5%;
+	margin-bottom:2.5%;
+	border:1px solid black;
 }
+/*Le damos las diferentes intruciones al usuario que tenie el juego*/
 .InfoPartida{
-	width:100%;
-	height:305px;
+	width:45%;
+	height:290px;
 	border:1px solid black;
 	float:right;
 	text-align:center;	
@@ -109,16 +117,17 @@ table {
 	color:white;
 	font-weight: bold;
 }
+/*Mostramos las estadisticas en pantalla de una forma determinada*/
 .EstadisticasPartida{
-	float:right;
+	float:left;
 	border:1px solid black;
-	width:100%;
+	width:40%;
 	height:290px;
-	margin-top:3%;
 	margin-right:1.5%;
 	text-align:center;
 	background-color:#3CC;
 }
+/*Cuadro donde situamos la vida y el punto de la partida*/
 .mostrarEstadisticas {
 	width:100%;
 	height:58px;
@@ -127,6 +136,7 @@ table {
 	margin-bottom:5%;
 	background-color:#3CC;
 }
+/*recuadro cn el nombre de vidas*/
 .cuadroVida{
 	width:25%;
 	height:32.5px;
@@ -137,6 +147,7 @@ table {
 	margin-top:-1px;
 	background-color:white;	
 }
+/*recuadro cn el nombre de puntos*/
 .cuadroPuntos{
 	width:25%;
 	height:32.5px;
@@ -147,14 +158,15 @@ table {
 	margin-top:-1px;
 	background-color:white;	
 }
+/*Nos muestra la cuantidad de vidas que tenemos en todo momento de la partida */
 .mostrarVidas{
 	width:15%;
 	height:38px;
 	border:5px solid black;
 	text-align:center;	
-	float:right;
+	float:left;
 	padding-top:2%;
-	margin-right:150px;
+	margin-left:25px;
 	margin-top:-1px;
 	font-size:22px;
 	-webkit-border-radius: 600px;
@@ -162,6 +174,7 @@ table {
 	border-radius: 600px;	
 	background-color:white;	
 }
+/*Personalizar como queremos que nos muestre los puntos que vamos consiguiendo en todo momento o los puntos que nos quitan */
 .mostrarPuntuacion{
 	width:15%;
 	height:38px;
@@ -177,19 +190,22 @@ table {
 	border-radius: 600px;	
 	background-color:white;	
 }
+/*Configurar el tipo de letra que queremos utilizar y el tamaño de letra */
 li{
 	text-align:left;
 	line-height:150%;
 }
+/*Configurar el tamaño de letra y hacia donde queremos aliniar el texto*/
 p{
 	text-align:left;
 	font-size:15px;
 }
+/*Configurar el tipo de letra que queremos utilizar y el tamaño de letra */
 h2{
 	font-size:22px;
 	font-family:"Arial Black", Gadget, sans-serif;
-	
 }
+/*Configurar el tamaño de letra */
 h3{
 	font-size:18px;
 }
