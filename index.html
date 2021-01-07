@@ -8,21 +8,6 @@
 </head>
 <body>
 
-    <!--
-		En este DIV le pedimos al usuario que ingrese la posicion de "x" y de "y" para descubrir la letra a la cual se le ha asignado esa casilla de forma aleatorio.
-	-->
-    <div id="cambiarLetras" class="PreguntaUsuario">
-		<h2>Introduce las coordenadas</h2>
-		<div id="cuadroimput">
-		<input type="text" id="posicionX" placeholder="Columna" class="imputColumna">
-		<input type="text" id="posicionY" placeholder="Fila" class="imputFila">
-		</div>
-		<div class="botones">
-		<button onclick="partida.destaparCasilla()" class="BotonDestapar">DESTAPA</button>
-        <button onclick="partida.inicio()" class="BotonAbandona ">ABANDONA</button>
-		</div>
-	</div>
-
 
 	<!--
 		En este DIV mostramos informacion del juego al jugador 
@@ -48,13 +33,29 @@
 		<div id="estadisticas" class="EstadisticasPartida">		
 			<h2>Estadisticas de la partida actual</h2>
                 <div class="mostrarEstadisticas">
-					<h4 id="showVidas" class="mostrarVidas"></h4>
 					<h4 class="cuadroVida">VIDAS</h4>
+					<h4 id="showVidas" class="mostrarVidas"></h4>
                 </div>
 				<div class="mostrarEstadisticas">
 					<h4 class="cuadroPuntos">PUNTOS</h4>
 					<h4 id="showPuntos" class="mostrarPuntuacion"></h4>
 				</div>
+		</div>
+	</div>
+	
+    <!--
+		En este DIV le pedimos al usuario que ingrese la posicion de "x" y de "y" para descubrir la letra a la cual se le ha asignado esa casilla de forma aleatorio.
+	-->
+	
+    <div id="cambiarLetras" class="PreguntaUsuario">
+		<h2>Introduce las coordenadas</h2>
+		<div id="cuadroimput">
+			<input type="text" id="posicionX" placeholder="Columna" class="imputColumna">
+			<input type="text" id="posicionY" placeholder="Fila" class="imputFila">
+		</div>
+		<div id="botones">
+			<button onclick="partida.destaparCasilla()" class="BotonDestapar">DESTAPA</button>
+			<button onclick="partida.inicio()" class="BotonAbandona ">ABANDONA</button>
 		</div>
 	</div>
 	
@@ -66,7 +67,7 @@
 	</div>
 	
 	<!--
-
+		Linkamos todos los archivos js que hemos utilizado 
 	-->	
 	<script src="zombie.js"></script>
 	<script src="estrella.js"></script>
