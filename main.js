@@ -5,10 +5,9 @@
 			- Que nos muestre al cabo de 250 milisegundos el recuadro donde le hacemos la pregunta al usuario.
 */
 window.onload = function(){
-    /*Oculta los divs*/
-   estadisticas.style.display ="none";
-   setTimeout(PreguntarMedida, 250);
+    partida.inicio();
 }
+
 
 /*
 	Funcion
@@ -17,6 +16,7 @@ window.onload = function(){
 
 function PreguntarMedida(){ 
     let medida = prompt("Introduce la altura del tablero (entre 5 y 20)");
+    partida.medida = medida;
     InicioJuego(medida);
 }
 
@@ -31,17 +31,8 @@ function InicioJuego(medida){
         alert("La tabla creada es de " + medida + "x" + medida);
 		estadisticas.style.display ="block";
         partida.inicializaMatriz(medida);
-        partida.mostrarTabla(medida);
     }else{
         alert("El valor introducido es incorrecto, comprueba que es un número entre 5 y 20");
         PreguntarMedida();  
-    }
-}
-
-function destaparCasilla() {
-  var PosX = document.getElementById("posicionX").value;
-  var PosY = document.getElementById("posicionY").value;
-    if(partida.tabla[PosY][PosX] == "g"){
-        partida.tabla[PosY][PosX] == "G";
     }
 }

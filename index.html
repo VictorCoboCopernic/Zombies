@@ -14,7 +14,8 @@
 		<input type="text" id="posicionX" placeholder="Columna">
 		<input type="text" id="posicionY" placeholder="Fila">
 		<br><br>
-		<button onclick="destaparCasilla()">DESTAPA</button>
+		<button onclick="partida.destaparCasilla()">DESTAPA</button>
+        <button onclick="partida.inicio()">ABANDONA</button>
 	</div>
 
 
@@ -41,7 +42,10 @@
 	-->		
 		<div id="estadisticas" class="EstadisticasPartida">		
 			<h3>Estadisticas de la partida actual</h3>
-				
+                <h3>Vidas</h3>
+                <div id="showVidas"></div>
+                <h3>Puntos</h3>
+                <div id="showPuntos"></div>
 		</div>
 	</div>
 	
