@@ -10,19 +10,23 @@
 
 
 	<!--
-		En este DIV mostramos informacion del juego al jugador 
+		En este DIV otorgamos instrucciones al jugador 
 	-->
 	<div id="ContenedorSecundario">
 		<div class="InfoPartida">
-				<h2>Caracteristicas de la partida </h2>
+				<h2>Instrucciones de la partida </h2>
 				<h3>El JUGADOR empezara la PARTIDA con 3 VIDAS y 0 PUNTOS </h3>
 				<p>
 					<ul>
-						<li>Si el JUGADOR encuentra un Zombi, perderá 1 VIDA y 100 PUNTOS </li>
+						<li>Si el JUGADOR encuentra una g, gana 50 PUNTOS </li>
+                        <li>Si el JUGADOR encuentra una ESTRELLA, gana 100 PUNTOS </li>
+                        <li>Si el JUGADOR encuentra un ZOMBIE, perderá 1 VIDA y 100 PUNTOS </li>
 						<li>Si el JUGADOR se queda sin VIDAS, PIERDE LA PARTIDA</li>
-						<li>Si el JUGADOR encuentra todas las ESTRELLAS, GANA LA PARTIDA </li> 
 						<li>Si el JUGADOR encuentra una ESTRELLA, GANA 200 PUNTOS</li>
-						<li>El JUGADOR puede abandonar en cualquier momento y empezar una NUEVA PARTIDA</li>
+                        <li>Si el JUGADOR destapa la casilla de DOBLE PUNTUACIÓN, se duplica la puntuación que tiene en ese momento</li>
+                        <li>Si el JUGADOR destapa las dos casillas de MITAD ZOMBIES, se muestran la mitad de zombies que quedan ocultos</li>
+                        <li>Si el JUGADOR destapa las tres casillas de SUMA VIDA, recibe una vida extra</li>
+                        <li>El JUGADOR puede abandonar en cualquier momento y empezar una NUEVA PARTIDA</li>
 					</ul>
 				</p>
 		</div>		
@@ -44,9 +48,8 @@
 	</div>
 	
     <!--
-		En este DIV le pedimos al usuario que ingrese la posicion de "x" y de "y" para descubrir la letra a la cual se le ha asignado esa casilla de forma aleatorio.
+		En este DIV le pedimos al usuario que ingrese las coordenadas 'x' e 'y' de una casilla para descubrir la letra que se encuentra debajo, también damos la opción de abandonar
 	-->
-	
     <div id="cambiarLetras" class="PreguntaUsuario">
 		<h2>Introduce las coordenadas</h2>
 		<div id="cuadroimput">
@@ -58,7 +61,7 @@
 			<button onclick="partida.inicio()" class="BotonAbandona ">ABANDONA</button>
 		</div>
 	</div>
-	
+    
 	<!--
 		En este DIV se muestra el tablero 
 	-->
@@ -67,16 +70,9 @@
 	</div>
 	
 	<!--
-		Linkamos todos los archivos js que hemos utilizado 
+
 	-->	
-	<script src="zombie.js"></script>
-	<script src="estrella.js"></script>
-	<script src="element.js"></script>
     <script src="partida.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
-
-<!--
-Tenemos que preguntar al usuario que posicion quiere destapar es decir preguntar la posicion de la X y de la Y ,y mostrar si hay alguna letra diferente o solo a encontrado la misma letra entonces se le mostrara la gesta destapada es letra G.
--->

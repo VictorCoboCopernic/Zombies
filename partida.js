@@ -4,12 +4,21 @@ let partida = {
     tabla:[],
     vidas:3,
     puntos:0,
-    contadorEstrellas:0,
     medida:0,
+    BarcosObligatorios:0,
+    nEstrellas:0,
+    nZombies:0,
+    medidaRecompensa:3,
+    
+    /*
+    Esta función se ejecuta cuando cargamos la pagina o abandonamos. Oculta los menús, reestablece las vidas y los puntos (y los muestra) y vacia la tabla, espera unos 250 milisegundos a que se cargue la página y entonces pregunta la medida del tablero
+    */
     
     inicio:function(){
     /*Oculta los divs*/
     estadisticas.style.display ="none";
+    cambiarLetras.style.display ="none";
+    this.tabla = []
     this.vidas=3;
     this.puntos=0;
     document.getElementById("showVidas").innerHTML = this.vidas;
@@ -17,15 +26,18 @@ let partida = {
     setTimeout(PreguntarMedida, 250);
 },
 
+    /*
+    Esta función se encarga de dibujar (o redibujar) la tabla que se muuestra al usuario. Esta calca los valores que se encuentra en la consola a excepción de las casillas ocupadas por minusculas, estas las deja en blanco ya que deben estar ocultas
+    */
     
     mostrarTabla:function(){
         let dibujarTabla = "<table>";
         for (let DibColumnas = 0; DibColumnas < this.medida; DibColumnas++){
             for (let DibFilas = 0; DibFilas < this.medida; DibFilas++){
-                if (["g","z","e","r1","r2","r3"].indexOf(partida.tabla[DibColumnas][DibFilas]) > -1){
+                if (["g","z","e","d","m","v"].indexOf(this.tabla[DibColumnas][DibFilas]) > -1){
                     dibujarTabla += "<td> </td>";
                 }else{
-                    dibujarTabla += "<td> " + partida.tabla[DibColumnas][DibFilas] + " </td>";
+                    dibujarTabla += "<td> " + this.tabla[DibColumnas][DibFilas] + " </td>";
                 }
             }
             dibujarTabla += "</tr>";
@@ -35,18 +47,18 @@ let partida = {
     },		
 
 
-    //crea la tablas con la medida establecida y ejecuta las varias funciones que la rellenan
+    //esta función ejecuta todas las funciones necesarias para crear la tabla
     
     inicializaMatriz:function(){
-        partida.creaTabla();
-        partida.rellenaRecompensa();
-        partida.rellenaEstrella();
-        partida.rellenaZombie();
-        partida.mostrarTabla();
+        this.creaTabla();
+        this.rellenaRecompensa();
+        this.rellenaEstrella();
+        this.rellenaZombie();
+        this.mostrarTabla();
         console.log(this.tabla);
     },
     
-    //crea la tablas con la medida establecida y rellena las casillas con g
+    //crea la tabla con la medida establecida y rellena las casillas con g
     
     creaTabla:function(){
         for(let i =0;i < this.medida; i++){
@@ -60,44 +72,60 @@ let partida = {
     rellenaRecompensa:function(){
         let totalRecompensa = Math.floor((this.medida*this.medida)/4) ;
         let contadorRecompensa = 0 ;
-        let medidaRecompensa = 3 ;
-        let BarcosObligatorios = 0 ;
         while(contadorRecompensa<totalRecompensa){
+            
             let randomMedidaRecompensa = (Math.floor(Math.random() * 3) + 1);
-            if(BarcosObligatorios==1){
-                let medidaRecompensa = randomMedidaRecompensa ;
+            if(this.BarcosObligatorios==1){
+                this.medidaRecompensa = randomMedidaRecompensa ;
             }
+            console.log("medidaRecompensa=" + this.medidaRecompensa + " BarcosObligatorios=" + this.BarcosObligatorios);
             let randomX = Math.floor(Math.random() * this.medida);
             let randomY = Math.floor(Math.random() * this.medida);
             let Orien = Math.floor(Math.random() * 2);
-            if((contadorRecompensa + medidaRecompensa) <=  totalRecompensa){
+            if((contadorRecompensa + this.medidaRecompensa) <=  totalRecompensa){
                 if(this.tabla[randomY][randomX] == "g"){
                     let correcte = 0 ;
-                    for(let i =0;i < medidaRecompensa; i++){
+                    for(let i =0;i < this.medidaRecompensa; i++){
                         if(Orien==0){
-                            if(this.tabla[randomY][randomX+i] == "g"){
+                            if(this.tabla[randomY][(randomX)+i] == "g"){
                                 correcte+=1;
                             }
                         }
                         if(Orien==1){
-                            if(this.tabla[randomY+i][randomX] == "g"){
+                            if(this.tabla[(randomY)+i][randomX] == "g"){
                                 correcte+=1;
                             }
                         }
-                        if(correcte==medidaRecompensa){
-                            for(let i =0;i < medidaRecompensa; i++){
+                        if(correcte==this.medidaRecompensa){
+                            for(let i =0;i < this.medidaRecompensa; i++){
                                 if(Orien==0){
-                                    this.tabla[randomY][randomX+i] = ("r" + medidaRecompensa);
+                                    if(this.medidaRecompensa==1){
+                                        this.tabla[randomY][randomX+i] = ("d");
+                                    }
+                                    if(this.medidaRecompensa==2){
+                                        this.tabla[randomY][randomX+i] = ("m");
+                                    }
+                                    if(this.medidaRecompensa==3){
+                                        this.tabla[randomY][randomX+i] = ("v");
+                                    }
                                     contadorRecompensa+=1;
                                 }
                                 if(Orien==1){
-                                    this.tabla[randomY+i][randomX] = ("r" + medidaRecompensa);
+                                    if(this.medidaRecompensa==1){
+                                        this.tabla[randomY+i][randomX] = ("d");
+                                    }
+                                    if(this.medidaRecompensa==2){
+                                        this.tabla[randomY+i][randomX] = ("m");
+                                    }
+                                    if(this.medidaRecompensa==3){
+                                        this.tabla[randomY+i][randomX] = ("v");
+                                    }
                                     contadorRecompensa+=1;
                                 }
                             }
-                            medidaRecompensa-=1;
-                            if(medidaRecompensa==0){
-                                let BarcosObligatorios = 1 ;
+                            this.medidaRecompensa-=1;
+                            if(this.medidaRecompensa==0){
+                                this.BarcosObligatorios = 1 ;
                             }
                         }
                     }
@@ -110,12 +138,13 @@ let partida = {
     La función rellenaEstrella va saltando entre casillas aleatorias de la tabla y coloca una estrella si esta tiene una g, repite el proceso hasta que ha colocado todas las estrellas necesarias (tantas como columnas tenga la tabla)
     */    
     rellenaEstrella:function(){
-        while(this.contadorEstrellas<this.medida){
+        let contadorEstrellas = 0;
+        while(contadorEstrellas<this.medida){
             let randomX = Math.floor(Math.random() * this.medida);
             let randomY = Math.floor(Math.random() * this.medida);
             if(this.tabla[randomY][randomX] == "g"){
                 this.tabla[randomY][randomX] = "e";
-                this.contadorEstrellas+=1;
+                contadorEstrellas+=1;
             }
         }
     },
@@ -135,69 +164,132 @@ let partida = {
             }
         }
     },
-    
-    
-	
-	
-/*
-	cambiarLetras:function(posicionX, posicionY){
-	let boton = document.getElementById("cambiarLetras");
-    boton.addEventListener("click" , destaparCasilla);			
-		this.posicionX = posicionX;
-		this.posicionY = posicionY; 
-		for(
-		
-		
-	},
-	*/
 
-
+    //Esta función se encarga de destapar la casilla que ha indicado el usuario
+    
     destaparCasilla:function(){
+        //Cogemos las coordenadas que hemos recibido del usuario y las convertimos en integer que podamos manipular facilmente
         console.log(this.medida);
-        var PosX = document.getElementById("posicionX").value;
-        var PosY = document.getElementById("posicionY").value;
+        var PosX = parseInt(document.getElementById("posicionX").value, 10);
+        var PosY = parseInt(document.getElementById("posicionY").value, 10);
+        //vaciamos las casillas donde se han introducido los valores
         document.getElementById('posicionX').value = '';
         document.getElementById('posicionY').value = '';
-        if (["G","Z","E","R1","R2","R3"].indexOf(partida.tabla[PosY][PosX]) > -1){
-            alert("La casilla ya se ha destapado");
-        }
-        if(partida.tabla[PosY][PosX] == ""){
-            alert("La casilla no existe");
-        }
-        if(partida.tabla[PosY][PosX] == "g"){
-            partida.tabla[PosY][PosX] = "G";
-            this.puntos+=50;
-            document.getElementById("showPuntos").innerHTML = this.puntos;
-            partida.mostrarTabla();
-            console.log(partida.tabla);
-        }
-        if(partida.tabla[PosY][PosX] == "z"){
-            partida.tabla[PosY][PosX] = "Z";
-            this.vidas-=1;
-            if(this.puntos<100){
-                this.puntos=0;
-            }else{
-                this.puntos-=100;
+        
+        /*
+        Comprovamos si las coordenadas introducidas se encuentran dentro de la tabla (entre 0 y la medida de la tabla menos 1 sin contar decimales), si los datos son correctos, continua la ejecución, si no se da el caso, muestra un mensaje de error
+        */
+        if(PosX<0||PosY<0||PosX>(this.medida-1)||PosY>(this.medida-1)||PosX % 1 != 0||PosY % 1 != 0){
+            alert("El valor introducido es incorrecto, comprueba que es un número entre 0 y " + (this.medida-1) + " y que no contiene decimales");
+        }else{
+            //Inicializamos un contador de las estrellas que nos quedan por destapar para saber cuanto nos queda hasta la victoria
+            let contadorEstrella = this.medida;
+            //si la casilla que hemos introducido ya ha sido destapada, muestra un mensaje de error
+            if (["G","Z","E","D","M","V"].indexOf(this.tabla[PosY][PosX]) > -1){
+                alert("La casilla ya se ha destapado");
             }
-            document.getElementById("showVidas").innerHTML = this.vidas;
-            document.getElementById("showPuntos").innerHTML = this.puntos;
-            partida.mostrarTabla();
-            console.log(partida.tabla);
-            if(this.vidas==0){
-                alert("Has Muerto");
-                partida.inicio();
+            //Si hemos caido en una g, destapa la casilla y suma 50 puntos
+            if(this.tabla[PosY][PosX] == "g"){
+                this.tabla[PosY][PosX] = "G";
+                this.puntos+=50;
+                document.getElementById("showPuntos").innerHTML = this.puntos;
+                this.mostrarTabla();
+                console.log(this.tabla);
             }
-        }
-        if(partida.tabla[PosY][PosX] == "e"){
-            partida.tabla[PosY][PosX] = "E";
-            this.contadorEstrellas-=1;
-            this.puntos+=200;
-            document.getElementById("showPuntos").innerHTML = this.puntos;
-            partida.mostrarTabla();
-            console.log(partida.tabla);
-            if(this.contadorEstrellas==0){
-                alert("Has Ganado");
-                partida.inicio();
+            
+            /*
+            Si hemos caido en una z, destapa la casilla y resta 100 puntos y 1 vida, si tienes menos de 100 puntos deja el marcador en cero y si te quedas sin vidas, muestra un mensaje de derrota, sumala al marcador y vuelve a iniciar una partida
+            */
+            
+            if(this.tabla[PosY][PosX] == "z"){
+                this.tabla[PosY][PosX] = "Z";
+                this.nZombies-=1;
+                this.vidas-=1;
+                if(this.puntos<100){
+                    this.puntos=0;
+                }else{
+                    this.puntos-=100;
+                }
+                document.getElementById("showVidas").innerHTML = this.vidas;
+                document.getElementById("showPuntos").innerHTML = this.puntos;
+                this.mostrarTabla();
+                console.log(this.tabla);
+                if(this.vidas==0){
+                    alert("Has Muerto");
+                    /*localStorage.setItem("d", (localStorage.getItem("d")+1));
+                    document.getElementById("derrotas").innerHTML = localStorage.getItem("d");*/
+                    this.inicio();
+                }
+            }
+            
+            /*
+            Si hemos caido en una e, destapa la casilla, suma 200 puntos y restale 1 al contador de estrellas que quedan por destapar, si el contador llega a 0, muestra un mensaje de victoria, sumala al marcador y vuelve a iniciar una partida
+            */
+            
+            if(this.tabla[PosY][PosX] == "e"){
+                this.tabla[PosY][PosX] = "E";
+                this.nEstrellas-=1;
+                this.puntos+=200;
+                document.getElementById("showPuntos").innerHTML = this.puntos;
+                this.mostrarTabla();
+                console.log(this.tabla);
+                if(this.nEstrellas==0){
+                    alert("Has Ganado");
+                    /*localStorage.setItem("v", (localStorage.getItem("v")+1));
+                    document.getElementById("victorias").innerHTML = localStorage.getItem("v");
+                    if(this.puntos > localStorage.getItem("t" + this.medida)){
+                        localStorage.setItem("t" + this.medida, this.puntos);
+                        document.getElementById("record").innerHTML = localStorage.getItem("t" + this.medida);
+                    }*/
+                    this.inicio();
+                }
+            }
+            
+            /*
+            Si hemos caido en una d significa que hemos activado la recompensa de duplicar la puntuación así que destapamos la casilla y ejecutamos la función
+            */
+            
+            if(this.tabla[PosY][PosX] == "d"){
+                this.tabla[PosY][PosX] = "D";
+                DoblePuntuacio();
+                this.mostrarTabla();
+                console.log(this.tabla);
+            }
+            
+            /*
+            Si hemos caido en una m, destapa la casilla y comprueva si hay casillas adyacentes con M destapada, si se da el caso, significa que hemos activado la recompensa de eliminar la mitad de zombies ocultos así que ejecutamos la función
+            */
+            
+            if(this.tabla[PosY][PosX] == "m"){
+                this.tabla[PosY][PosX] = "M";
+                
+                if(this.tabla[PosY+1][PosX] == "M" ||
+                   this.tabla[PosY-1][PosX] == "M" ||
+                   this.tabla[PosY][PosX+1] == "M" ||
+                   this.tabla[PosY][PosX-1] == "M"){
+                    MeitatZombies();
+                }
+                this.mostrarTabla();
+                console.log(this.tabla);
+            }
+            
+            /*
+            Si hemos caido en una v, destapa la casilla y comprueva si forma parte de una linea de de tres V destapadas, si se da el caso, significa que hemos activado la recompensa de sumar una vida así que ejecutamos la función
+            */
+            
+            if(this.tabla[PosY][PosX] == "v"){
+                this.tabla[PosY][PosX] = "V";
+                
+                if((this.tabla[PosX+1][PosX] == "V" && this.tabla[PosY+2][PosX] == "V") ||
+                   (this.tabla[PosY+1][PosX] == "V" && this.tabla[PosY-1][PosX] == "V") ||
+                   (this.tabla[PosY-1][PosX] == "V" && this.tabla[PosY-2][PosX] == "V") ||
+                   (this.tabla[PosY][PosX+1] == "V" && this.tabla[PosY][PosX+2] == "V") ||
+                   (this.tabla[PosY][PosX+1] == "V" && this.tabla[PosY][PosX-1] == "V") ||
+                   (this.tabla[PosY][PosX-1] == "V" && this.tabla[PosY][PosX-2] == "V")){
+                    SumaVida();
+                }
+                this.mostrarTabla();
+                console.log(this.tabla);
             }
         }
     }
