@@ -157,11 +157,13 @@ iniciarPartida: function (newMedida){
                                 correcte+=1;
                             }
                         }
-                        if(Orien==1){
-                            if(this.tabla[randomY+i][randomX] == "g"){
-                                correcte+=1;
+                        try{
+                            if(Orien==1){
+                                if(this.tabla[randomY+i][randomX] == "g"){
+                                    correcte+=1;
+                                }
                             }
-                        }
+                        }catch(err){}
                         if(correcte==this.medidaRecompensa){
                             for(let i =0;i < this.medidaRecompensa; i++){
                                 if(Orien==0){
@@ -285,129 +287,131 @@ iniciarPartida: function (newMedida){
             //Si la casilla que hemos introducido ya ha sido destapada, muestra un mensaje de error
             if (["G","Z","E","D","M","V"].indexOf(this.tabla[PosY][PosX]) > -1){
                 alert("La casilla ya se ha destapado");
-            }
-            //Si hemos caído  en una g, destapa la casilla y suma 50 puntos
-            if(this.tabla[PosY][PosX] == "g"){
-                this.tabla[PosY][PosX] = "G";
-                this.puntos+=50;
-                document.getElementById("showPuntos").innerHTML = this.puntos;
-                this.mostrarTabla();
-                console.log(this.tabla);
-            }
-            
-            /*
-            Comprueba si las coordenadas introducidas coinciden con la posición de un zombie, si es así destapa la casilla y resta 100 puntos y 1 vida, si tienes menos de 100 puntos deja el marcador en cero y si te quedas sin vidas, muestra un mensaje de derrota, súmala al marcador y vuelve a iniciar una partida
-            */
-            
-            for(let i =0;i < this.totalZombies; i++){
-                if(PosX == this.zombies[i].X && PosY == this.zombies[i].Y && this.zombies[i].activado==false){
-                    this.tabla[PosY][PosX] = "Z";
-                    this.zombies[i].activado=true;
-                    this.zombiesRestantes--;
-                    this.vidas-=1;
-                    if(this.puntos<100){
-                        this.puntos=0;
-                    }else{
-                        this.puntos-=100;
-                    }
-                    document.getElementById("showVidas").innerHTML = this.vidas;
+            }else{
+                //Si hemos caído  en una g, destapa la casilla y suma 50 puntos
+                if(this.tabla[PosY][PosX] == "g"){
+                    this.tabla[PosY][PosX] = "G";
+                    this.puntos+=50;
                     document.getElementById("showPuntos").innerHTML = this.puntos;
                     this.mostrarTabla();
                     console.log(this.tabla);
-                    if(this.vidas==0){
-                        setTimeout(function(){
-                            alert("Has Muerto");
-                            let derrotas = parseInt(localStorage.getItem("derrotas"));
-                            localStorage.setItem("derrotas", (derrotas+1));
-                            this.reinicio();
-                        }.bind(this), 250);
-                    }
                 }
-            }
-            
-            /*
-            Comprueba si las coordenadas introducidas coinciden con la posición de una estrella, si es así destapa la casilla, suma 200 puntos y réstale 1 al contador de estrellas que quedan por destapar, si el contador llega a 0, muestra un mensaje de victoria, súmala al marcador y vuelve a iniciar una partida. Si has batido el record de puntuación en esta tabla, sustituye el valor de record en esta
-            */
-            
-            for(let i =0;i < this.medida; i++){
-                if(PosX == this.estrelles[i].X && PosY == this.estrelles[i].Y && this.estrelles[i].activado==false){
-                    this.tabla[PosY][PosX] = "E";
-                    this.estrelles[i].activado=true
-                    this.contadorEstrellas--;
-                    this.puntos+=200;
-                    document.getElementById("showPuntos").innerHTML = this.puntos;
-                    this.mostrarTabla();
-                    console.log(this.tabla);
-                    if(this.contadorEstrellas==0){
-                        setTimeout(function(){
-                            alert("Has Ganado");
-                            let victorias = parseInt(localStorage.getItem("victorias"));
-                            localStorage.setItem("victorias", (victorias+1));
-                            if(this.puntos > localStorage.getItem("t" + this.medida)){
-                                localStorage.setItem("t" + this.medida, this.puntos);
-                            }
-                            this.reinicio();
-                        }.bind(this), 250);
-                    }
-                }
-            }
-            
-            /*
-            Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa doblePuntuacion desactivada, si es así destapamos la casilla, la declaramos como activada y ejecutamos su función
-            */
-            
-            for(let i =0;i < this.doblePuntuaciones.length; i++){
-                if(PosX == this.doblePuntuaciones[i].X && PosY == this.doblePuntuaciones[i].Y && this.doblePuntuaciones[i].activado==false){
-                    this.tabla[PosY][PosX] = "D";
-                    this.doblePuntuaciones[i].activado=true;
-                    this.DoblePuntuacio();
-                    this.mostrarTabla();
-                    console.log(this.tabla);
-                }
-            }
-            
-            /*
-            Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa mitadZombie desactivada, si es así destapamos la casilla, si todas las casillas de premio han sido destapadas la declaramos como activada y ejecutamos su función
-            */
-            
-            for(let i =0;i < this.mitadZombies.length; i++){
-                if((PosX == this.mitadZombies[i].X && PosY == this.mitadZombies[i].Y) ||
-                   (PosX == this.mitadZombies[i].X2 && PosY == this.mitadZombies[i].Y2) && this.mitadZombies[i].activado==false){
 
+                /*
+                Comprueba si las coordenadas introducidas coinciden con la posición de un zombie, si es así destapa la casilla y resta 100 puntos y 1 vida, si tienes menos de 100 puntos deja el marcador en cero y si te quedas sin vidas, muestra un mensaje de derrota, súmala al marcador y vuelve a iniciar una partida
+                */
 
-                    this.tabla[PosY][PosX] = "M";
-
-                    if((this.tabla[this.mitadZombies[i].Y][this.mitadZombies[i].X] == "M")&&
-                       (this.tabla[this.mitadZombies[i].Y2][this.mitadZombies[i].X2] == "M")){
-                        this.MeitatZombies();
-                        this.mitadZombies[i].activado=true;
-                    }
-                    this.mostrarTabla();
-                    console.log(this.tabla);
-                }
-            }
-            
-            /*
-            Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa sumaVida desactivada, si es así destapamos la casilla, si todas las casillas de premio han sido destapadas la declaramos como activada y ejecutamos su función
-            */
-            
-            for(let i =0;i < this.sumaVidas.length; i++){
-                if((PosX == this.sumaVidas[i].X && PosY == this.sumaVidas[i].Y) ||
-                   (PosX == this.sumaVidas[i].X2 && PosY == this.sumaVidas[i].Y2)||
-                    (PosX == this.sumaVidas[i].X3 && PosY == this.sumaVidas[i].Y3) && this.sumaVidas[i].activado==false){
-
-
-                    this.tabla[PosY][PosX] = "V";
-
-                    if((this.tabla[this.sumaVidas[i].Y][this.sumaVidas[i].X] == "V")&&
-                       (this.tabla[this.sumaVidas[i].Y2][this.sumaVidas[i].X2] == "V")&&
-                       (this.tabla[this.sumaVidas[i].Y3][this.sumaVidas[i].X3] == "V")){
+                for(let i =0;i < this.totalZombies; i++){
+                    if(PosX == this.zombies[i].X && PosY == this.zombies[i].Y && this.zombies[i].activado==false){
+                        this.tabla[PosY][PosX] = "Z";
+                        this.zombies[i].activado=true;
+                        this.zombiesRestantes--;
+                        this.vidas-=1;
+                        if(this.puntos<100){
+                            this.puntos=0;
+                        }else{
+                            this.puntos-=100;
+                        }
                         
-                        this.sumaVidas[i].activado=true;
-                        this.MesVida();
+                        document.getElementById("showVidas").innerHTML = this.vidas;
+                        document.getElementById("showPuntos").innerHTML = this.puntos;
+                        this.mostrarTabla();
+                        console.log(this.tabla);
+                        if(this.vidas==0){
+                            setTimeout(function(){
+                                alert("Has Muerto");
+                                let derrotas = parseInt(localStorage.getItem("derrotas"));
+                                localStorage.setItem("derrotas", (derrotas+1));
+                                this.reinicio();
+                            }.bind(this), 250);
+                        }
                     }
-                    this.mostrarTabla();
-                    console.log(this.tabla);
+                }
+
+                /*
+                Comprueba si las coordenadas introducidas coinciden con la posición de una estrella, si es así destapa la casilla, suma 200 puntos y réstale 1 al contador de estrellas que quedan por destapar, si el contador llega a 0, muestra un mensaje de victoria, súmala al marcador y vuelve a iniciar una partida. Si has batido el record de puntuación en esta tabla, sustituye el valor de record en esta
+                */
+
+                for(let i =0;i < this.medida; i++){
+                    if(PosX == this.estrelles[i].X && PosY == this.estrelles[i].Y && this.estrelles[i].activado==false){
+                        this.tabla[PosY][PosX] = "E";
+                        this.estrelles[i].activado=true
+                        this.contadorEstrellas--;
+                        this.puntos+=200;
+                        document.getElementById("showPuntos").innerHTML = this.puntos;
+                        this.mostrarTabla();
+                        console.log(this.tabla);
+                        if(this.contadorEstrellas==0){
+                            setTimeout(function(){
+                                alert("Has Ganado");
+                                let victorias = parseInt(localStorage.getItem("victorias"));
+                                localStorage.setItem("victorias", (victorias+1));
+                                if(this.puntos > localStorage.getItem("t" + this.medida)){
+                                    localStorage.setItem("t" + this.medida, this.puntos);
+                                }
+                                this.reinicio();
+                            }.bind(this), 250);
+                        }
+                    }
+                }
+
+                /*
+                Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa doblePuntuacion desactivada, si es así destapamos la casilla, la declaramos como activada y ejecutamos su función
+                */
+
+                for(let i =0;i < this.doblePuntuaciones.length; i++){
+                    if(PosX == this.doblePuntuaciones[i].X && PosY == this.doblePuntuaciones[i].Y && this.doblePuntuaciones[i].activado==false){
+                        this.tabla[PosY][PosX] = "D";
+                        this.doblePuntuaciones[i].activado=true;
+                        this.DoblePuntuacio();
+                        this.mostrarTabla();
+                        console.log(this.tabla);
+                    }
+                }
+
+                /*
+                Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa mitadZombie desactivada, si es así destapamos la casilla, si todas las casillas de premio han sido destapadas la declaramos como activada y ejecutamos su función
+                */
+
+                for(let i =0;i < this.mitadZombies.length; i++){
+                    if((PosX == this.mitadZombies[i].X && PosY == this.mitadZombies[i].Y) ||
+                       (PosX == this.mitadZombies[i].X2 && PosY == this.mitadZombies[i].Y2) && this.mitadZombies[i].activado==false){
+
+
+                        this.tabla[PosY][PosX] = "M";
+
+                        if((this.tabla[this.mitadZombies[i].Y][this.mitadZombies[i].X] == "M")&&
+                           (this.tabla[this.mitadZombies[i].Y2][this.mitadZombies[i].X2] == "M")){
+                            this.MeitatZombies();
+                            this.mitadZombies[i].activado=true;
+                        }
+                        this.mostrarTabla();
+                        console.log(this.tabla);
+                    }
+                }
+
+                /*
+                Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa sumaVida desactivada, si es así destapamos la casilla, si todas las casillas de premio han sido destapadas la declaramos como activada y ejecutamos su función
+                */
+
+                for(let i =0;i < this.sumaVidas.length; i++){
+                    if((PosX == this.sumaVidas[i].X && PosY == this.sumaVidas[i].Y) ||
+                       (PosX == this.sumaVidas[i].X2 && PosY == this.sumaVidas[i].Y2)||
+                        (PosX == this.sumaVidas[i].X3 && PosY == this.sumaVidas[i].Y3) && this.sumaVidas[i].activado==false){
+
+
+                        this.tabla[PosY][PosX] = "V";
+
+                        if((this.tabla[this.sumaVidas[i].Y][this.sumaVidas[i].X] == "V")&&
+                           (this.tabla[this.sumaVidas[i].Y2][this.sumaVidas[i].X2] == "V")&&
+                           (this.tabla[this.sumaVidas[i].Y3][this.sumaVidas[i].X3] == "V")){
+
+                            this.sumaVidas[i].activado=true;
+                            this.MesVida();
+                        }
+                        this.mostrarTabla();
+                        console.log(this.tabla);
+                    }
                 }
             }
         }
