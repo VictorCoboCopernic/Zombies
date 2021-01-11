@@ -96,7 +96,7 @@ td {
 /*Este id lo utilizamos para poner dos cuadros en esta caja*/
 #ContenedorSecundario{
 	width:95%;
-	height:290px;
+	height:750px;
 	float:left;
 	margin-top:2.5%;
 	margin-right:1.5%;	
@@ -121,7 +121,7 @@ td {
 	float:left;
 	border:1px solid black;
 	width:40%;
-	height:290px;
+	height:750px;
 	margin-right:1.5%;
 	text-align:center;
 	background-color:#3CC;

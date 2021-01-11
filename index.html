@@ -44,6 +44,22 @@
 					<h4 class="cuadroPuntos">PUNTOS</h4>
 					<h4 id="showPuntos" class="mostrarPuntuacion"></h4>
 				</div>
+            <div class="mostrarEstadisticas">
+					<h4 class="cuadroPuntos">VICTORIAS</h4>
+					<h4 id="showVictorias" class="mostrarPuntuacion"></h4>
+            </div>
+            <div class="mostrarEstadisticas">
+					<h4 class="cuadroPuntos">DERROTAS</h4>
+					<h4 id="showDerrotas" class="mostrarPuntuacion"></h4>
+            </div>
+            <div class="mostrarEstadisticas">
+					<h4 class="cuadroPuntos">ABANDONOS</h4>
+					<h4 id="showAbandonos" class="mostrarPuntuacion"></h4>
+            </div>
+            <div class="mostrarEstadisticas">
+					<h4 class="cuadroPuntos">RECORD TABLA</h4>
+					<h4 id="showRecord" class="mostrarPuntuacion"></h4>
+            </div>
 		</div>
 	</div>
 	
@@ -58,7 +74,7 @@
 		</div>
 		<div id="botones">
 			<button onclick="partida.destaparCasilla()" class="BotonDestapar">DESTAPA</button>
-			<button onclick="partida.inicio()" class="BotonAbandona ">ABANDONA</button>
+			<button onclick="partida.abandono()" class="BotonAbandona ">ABANDONA</button>
 		</div>
 	</div>
     
@@ -70,7 +86,14 @@
 	</div>
 	
 
-    <script src="partida.js"></script>
-    <script src="main.js"></script>
+    <script src="js/partida.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/element.js"></script>
+    <script src="js/estrella.js"></script>
+    <script src="js/zombie.js"></script>
+    <script src="js/recompensa.js"></script>
+    <script src="js/Recompensas/doblePuntuacion.js"></script>
+    <script src="js/Recompensas/mitadZombie.js"></script>
+    <script src="js/Recompensas/sumaVida.js"></script>
 </body>
 </html>
