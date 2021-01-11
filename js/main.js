@@ -2,6 +2,8 @@
 
 window.onload = function(){
     partida.reinicio();
+    estadisticas.style.display ="none";
+    cambiarLetras.style.display ="none";    
 }
     
 /*
