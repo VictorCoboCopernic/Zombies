@@ -15,7 +15,7 @@ let partida = {
     medidaRecompensa:3,
     
 /*
-Pregunta al usuario qual es la medida del tablero que quiere introducir y asigna valor a las variables medida, nEstrellas (número de estrellas) y nZombies (número de zombies) del objeto partida teniendo en cuenta el tamaño del tablero, finalmente ejecuta InicioJuego
+Cuando el usuario abandona se suma un punto al marcador de abandonos y reinicia la partida
 */
 
 abandono: function (){
@@ -26,33 +26,49 @@ abandono: function (){
     this.reinicio();
     }.bind(this), 250);
 },
+
+/*
+Esta función se ejecuta cuando cargamos la página o después de abandonar. Oculta los menús, restablece las vidas y los puntos, crea los localStorage si no existen (y los muestra) y vacía la tabla, espera unos 250 milisegundos a que se cargue la página y entonces pregunta la medida del tablero
+*/
     
     reinicio: function (){
     this.tabla = [];
     this.vidas=3;
     this.puntos=0;
     document.getElementById("showVidas").innerHTML = this.vidas;
+    document.getElementById("showPuntos").innerHTML = this.puntos;
+    
+    if (localStorage.getItem("victorias") === null) {
+      localStorage.setItem("victorias", 0);
+    }
+        
     document.getElementById("showVictorias").innerHTML = localStorage.getItem("victorias");
-    document.getElementById("showDerrotas").innerHTML = localStorage.getItem("victorias");
+    
+    if (localStorage.getItem("derrotas") === null) {
+        localStorage.setItem("derrotas", 0);
+    }
+    
+    document.getElementById("showDerrotas").innerHTML = localStorage.getItem("derrotas");
+    
+    if (localStorage.getItem("abandonos") === null) {
+        localStorage.setItem("abandonos", 0);
+    }
+    document.getElementById("showAbandonos").innerHTML = localStorage.getItem("abandonos");
+    
     estadisticas.style.display ="none";
     cambiarLetras.style.display ="none";
-    this.preguntarMedida();
+    preguntarMedida();
 },
 
-preguntarMedida: function (){
-    let newMedida = prompt("Introduce la altura del tablero (entre 5 y 20)");
-    if (newMedida>=5 && newMedida<=20 && newMedida % 1 == 0){
-        alert("La tabla creada es de " + newMedida + "x" + newMedida);
-        estadisticas.style.display ="block";
-        cambiarLetras.style.display ="block";
-        this.iniciarPartida(newMedida);
-    }else{
-        alert("El valor introducido es incorrecto, comprueba que es un número entre 5 y 20 y que no contiene decimales");
-        this.preguntarMedida();  
-    }
-},
+
+/*
+Esta función inicia una nueva partida, se encarga de crear la tabla y rellenarla y de resetear todas las variables y arrays. También muestra el record de puntuación de la tabla que hemos creado
+*/
     
-    iniciarPartida: function (newMedida){
+iniciarPartida: function (newMedida){
+    if (localStorage.getItem("t" + newMedida) === null) {
+        localStorage.setItem("t" + newMedida, 0);
+    }
     document.getElementById("showRecord").innerHTML = localStorage.getItem("t" + newMedida);
     this.medida = newMedida
     this.totalZombies = Math.floor((newMedida*newMedida)/4);
@@ -173,6 +189,11 @@ preguntarMedida: function (){
                                     contadorRecompensa+=1;
                                 }
                             }
+                            
+                            /*
+                            Esto se encarga de crear el objeto recompensa con los valores que hemos introducido en el tablero. Comprueba el tipo de recompensa que hemos creado y vuelve a recorrer las casillas de antes asignando sus coordenadas a las propiedades del objeto
+                            */
+                            
                             if(this.medidaRecompensa==1){
                                 let doblePuntuacion = new DoblePuntuacion(randomX, randomY);
                                 this.doblePuntuaciones.push(doblePuntuacion);
@@ -210,7 +231,7 @@ preguntarMedida: function (){
     },
     
     /*
-    La función rellenaEstrella va saltando entre casillas aleatorias de la tabla y coloca una estrella si esta tiene una g, repite el proceso hasta que ha colocado todas las estrellas necesarias (tantas como columnas tenga la tabla)
+    La función rellenaEstrella va saltando entre casillas aleatorias de la tabla, si esta tiene una g, coloca una e en esa casilla y crea un objeto estrella con las coordenadas establecidas y lo añade al array, repite el proceso hasta que ha colocado todas las estrellas necesarias (tantas como columnas tenga la tabla)
     */    
     rellenaEstrella:function(){
         this.contadorEstrellas = 0;
@@ -227,7 +248,7 @@ preguntarMedida: function (){
     },
     
     /*
-    La función rellenaZombie va saltando entre casillas aleatorias de la tabla y coloca un zombie si esta tiene una g, repite el proceso hasta que ha rellenado una cuarta parte de la tabla (Math.floor((medida*medida)/4))
+    La función rellenaZombie va saltando entre casillas aleatorias de la tabla, si esta tiene una g, coloca una z en esa casilla y crea un objeto zombie con las coordenadas establecidas y lo añade al array, repite el proceso hasta que ha rellenado una cuarta parte de la tabla (Math.floor((medida*medida)/4))
     */ 
     rellenaZombie:function(){
         let contadorZombies = 0 ;
@@ -275,7 +296,7 @@ preguntarMedida: function (){
             }
             
             /*
-            Si hemos caido en una z, destapa la casilla y resta 100 puntos y 1 vida, si tienes menos de 100 puntos deja el marcador en cero y si te quedas sin vidas, muestra un mensaje de derrota, súmala al marcador y vuelve a iniciar una partida
+            Comprueba si las coordenadas introducidas coinciden con la posición de un zombie, si es así destapa la casilla y resta 100 puntos y 1 vida, si tienes menos de 100 puntos deja el marcador en cero y si te quedas sin vidas, muestra un mensaje de derrota, súmala al marcador y vuelve a iniciar una partida
             */
             
             for(let i =0;i < this.totalZombies; i++){
@@ -305,7 +326,7 @@ preguntarMedida: function (){
             }
             
             /*
-            Si hemos caído  en una e, destapa la casilla, suma 200 puntos y réstale  1 al contador de estrellas que quedan por destapar, si el contador llega a 0, muestra un mensaje de victoria, súmala al marcador y vuelve a iniciar una partida
+            Comprueba si las coordenadas introducidas coinciden con la posición de una estrella, si es así destapa la casilla, suma 200 puntos y réstale 1 al contador de estrellas que quedan por destapar, si el contador llega a 0, muestra un mensaje de victoria, súmala al marcador y vuelve a iniciar una partida. Si has batido el record de puntuación en esta tabla, sustituye el valor de record en esta
             */
             
             for(let i =0;i < this.medida; i++){
@@ -332,21 +353,21 @@ preguntarMedida: function (){
             }
             
             /*
-            Si hemos caído en una d significa que hemos activado la recompensa de duplicar la puntuación así que destapamos la casilla y ejecutamos la función
+            Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa doblePuntuacion desactivada, si es así destapamos la casilla, la declaramos como activada y ejecutamos su función
             */
             
             for(let i =0;i < this.doblePuntuaciones.length; i++){
                 if(PosX == this.doblePuntuaciones[i].X && PosY == this.doblePuntuaciones[i].Y && this.doblePuntuaciones[i].activado==false){
                     this.tabla[PosY][PosX] = "D";
                     this.doblePuntuaciones[i].activado=true;
-                    DoblePuntuacio();
+                    this.DoblePuntuacio();
                     this.mostrarTabla();
                     console.log(this.tabla);
                 }
             }
             
             /*
-            Si hemos caído en una m, destapa la casilla y comprueba si hay casillas adyacentes con M destapada, si se da el caso, significa que hemos activado la recompensa de eliminar la mitad de zombies ocultos así que ejecutamos la función
+            Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa mitadZombie desactivada, si es así destapamos la casilla, si todas las casillas de premio han sido destapadas la declaramos como activada y ejecutamos su función
             */
             
             for(let i =0;i < this.mitadZombies.length; i++){
@@ -358,7 +379,7 @@ preguntarMedida: function (){
 
                     if((this.tabla[this.mitadZombies[i].Y][this.mitadZombies[i].X] == "M")&&
                        (this.tabla[this.mitadZombies[i].Y2][this.mitadZombies[i].X2] == "M")){
-                        MeitatZombies();
+                        this.MeitatZombies();
                         this.mitadZombies[i].activado=true;
                     }
                     this.mostrarTabla();
@@ -367,7 +388,7 @@ preguntarMedida: function (){
             }
             
             /*
-            Si hemos caído en una v, destapa la casilla y comprueba si forma parte de una línea de tres V destapadas, si se da el caso, significa que hemos activado la recompensa de sumar una vida así que ejecutamos la función
+            Comprueba si las coordenadas introducidas coinciden con la posición de una recompensa sumaVida desactivada, si es así destapamos la casilla, si todas las casillas de premio han sido destapadas la declaramos como activada y ejecutamos su función
             */
             
             for(let i =0;i < this.sumaVidas.length; i++){
@@ -383,12 +404,48 @@ preguntarMedida: function (){
                        (this.tabla[this.sumaVidas[i].Y3][this.sumaVidas[i].X3] == "V")){
                         
                         this.sumaVidas[i].activado=true;
-                        MesVida();
+                        this.MesVida();
                     }
                     this.mostrarTabla();
                     console.log(this.tabla);
                 }
             }
         }
+    },
+    
+    /*
+    Cuando esta función se ejecuta, se aplican los efectos de Doblar Puntuación: Cogemos la variable Puntos de partida y duplicamos su valor, también actualizamos el valor mostrado en pantalla
+    */
+
+    DoblePuntuacio:function(){
+        partida.puntos=(partida.puntos*2);
+        document.getElementById("showPuntos").innerHTML = partida.puntos;
+    },
+
+    /*
+    Cuando esta función se ejecuta, se aplican los efectos de Sumar Vida: Cogemos la variable Vidas de partida y le sumamos 1 al valor, también actualizamos el valor mostrado en pantalla
+    */
+
+    MesVida:function(){
+        partida.vidas+=1;
+        document.getElementById("showVidas").innerHTML = partida.vidas;
+    },
+
+    /*
+    Cuando esta función se ejecuta, se aplican los efectos de Mitad Zombies: Cogemos el contador de zombies sin descubrir en partida y lo dividimos entre 2 (truncándolo) para saber el número de zombies que hemos de destapar, la función se encarga entonces de ir saltando entre posiciones aleatorias destapando zombies que encuentre tapados hasta que alcance el número definido
+    */
+
+    MeitatZombies:function(){
+        let contadorZombies = Math.floor(partida.zombiesRestantes/2);
+        while(contadorZombies>0){
+            let randomX = Math.floor(Math.random() * partida.medida);
+            let randomY = Math.floor(Math.random() * partida.medida);
+            if(partida.tabla[randomY][randomX] == "z"){
+                partida.tabla[randomY][randomX] = "Z";
+                contadorZombies-=1 ;
+                partida.zombiesRestantes-=1 ;
+            }
+        }
+        partida.mostrarTabla();
     }
 }
