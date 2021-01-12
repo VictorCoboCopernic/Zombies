@@ -13,6 +13,7 @@ let partida = {
     totalZombies:0,
     zombiesRestantes:0,
     medidaRecompensa:3,
+    primerDestape:0,
     
 /*
 Cuando el usuario abandona se suma un punto al marcador de abandonos y reinicia la partida
@@ -79,7 +80,8 @@ iniciarPartida: function (newMedida){
     this.mitadZombies = [];
     this.sumaVidas = [];
     this.contadorEstrellas=0;
-    this.medidaRecompensa=3; 
+    this.medidaRecompensa=3;
+    this.primerDestape=0;
     this.creaTabla();
     this.rellenaRecompensa();
     this.rellenaEstrella();
@@ -106,7 +108,23 @@ iniciarPartida: function (newMedida){
         }
         dibujarTabla += "</table>";
         document.getElementById("mostrarJuego").innerHTML = dibujarTabla;
-    },		
+    },
+    
+    /*
+    Esta función se encarga de dibujar (o redibujar) la tabla que se muestra al usuario. Esta calca los valores que se encuentra en la consola a excepción de las casillas ocupadas por minúsculas, estas las deja en blanco, ya que deben estar ocultas
+    */
+    
+    mostrarTablaCompleta:function(){
+        let dibujarTabla = "<table>";
+        for (let DibColumnas = 0; DibColumnas < this.medida; DibColumnas++){
+            for (let DibFilas = 0; DibFilas < this.medida; DibFilas++){
+                dibujarTabla += "<td> " + this.tabla[DibColumnas][DibFilas] + " </td>";
+            }
+            dibujarTabla += "</tr>";
+        }
+        dibujarTabla += "</table>";
+        document.getElementById("mostrarJuego").innerHTML = dibujarTabla;
+    },	
 
 
     
@@ -295,6 +313,7 @@ iniciarPartida: function (newMedida){
                     document.getElementById("showPuntos").innerHTML = this.puntos;
                     this.mostrarTabla();
                     console.log(this.tabla);
+                    this.primerDestape=1;
                 }
 
                 /*
@@ -317,6 +336,7 @@ iniciarPartida: function (newMedida){
                         document.getElementById("showPuntos").innerHTML = this.puntos;
                         this.mostrarTabla();
                         console.log(this.tabla);
+                        this.primerDestape=1;
                         if(this.vidas==0){
                             setTimeout(function(){
                                 alert("Has Muerto");
@@ -341,6 +361,13 @@ iniciarPartida: function (newMedida){
                         document.getElementById("showPuntos").innerHTML = this.puntos;
                         this.mostrarTabla();
                         console.log(this.tabla);
+                        if(this.primerDestape==0){
+                            this.mostrarTablaCompleta();
+                            setTimeout(function(){
+                                this.mostrarTabla();
+                            }.bind(this), 300);
+                            this.primerDestape=1;
+                        }
                         if(this.contadorEstrellas==0){
                             setTimeout(function(){
                                 alert("Has Ganado");
@@ -366,6 +393,7 @@ iniciarPartida: function (newMedida){
                         this.DoblePuntuacio();
                         this.mostrarTabla();
                         console.log(this.tabla);
+                        this.primerDestape=1;
                     }
                 }
 
@@ -377,7 +405,6 @@ iniciarPartida: function (newMedida){
                     if((PosX == this.mitadZombies[i].X && PosY == this.mitadZombies[i].Y) ||
                        (PosX == this.mitadZombies[i].X2 && PosY == this.mitadZombies[i].Y2) && this.mitadZombies[i].activado==false){
 
-
                         this.tabla[PosY][PosX] = "M";
 
                         if((this.tabla[this.mitadZombies[i].Y][this.mitadZombies[i].X] == "M")&&
@@ -387,6 +414,7 @@ iniciarPartida: function (newMedida){
                         }
                         this.mostrarTabla();
                         console.log(this.tabla);
+                        this.primerDestape=1;
                     }
                 }
 
@@ -411,6 +439,7 @@ iniciarPartida: function (newMedida){
                         }
                         this.mostrarTabla();
                         console.log(this.tabla);
+                        this.primerDestape=1;
                     }
                 }
             }
