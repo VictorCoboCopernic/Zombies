@@ -99,9 +99,26 @@ iniciarPartida: function (newMedida){
         for (let DibColumnas = 0; DibColumnas < this.medida; DibColumnas++){
             for (let DibFilas = 0; DibFilas < this.medida; DibFilas++){
                 if (["g","z","e","d","m","v"].indexOf(this.tabla[DibColumnas][DibFilas]) > -1){
-                    dibujarTabla += "<td> </td>";
+                    dibujarTabla += "<td> <img src='Visuals/misterio.png' style='width:50px;height:50px;'></td>";
                 }else{
-                    dibujarTabla += "<td> " + this.tabla[DibColumnas][DibFilas] + " </td>";
+                    if(this.tabla[DibColumnas][DibFilas]=="G"){
+                        dibujarTabla += "<td> <img src='Visuals/grass.jpg' style='width:50px;height:50px;'></td>";
+                    }
+                    if(this.tabla[DibColumnas][DibFilas]=="Z"){
+                        dibujarTabla += "<td> <img src='Visuals/zombie.png' style='width:50px;height:50px;'></td>";
+                    }
+                    if(this.tabla[DibColumnas][DibFilas]=="E"){
+                        dibujarTabla += "<td> <img src='Visuals/estrella.png' style='width:50px;height:50px;'></td>";
+                    }
+                    if(this.tabla[DibColumnas][DibFilas]=="D"){
+                        dibujarTabla += "<td> <img src='Visuals/x2.png' style='width:50px;height:50px;'></td>";
+                    }
+                    if(this.tabla[DibColumnas][DibFilas]=="M"){
+                        dibujarTabla += "<td> <img src='Visuals/deadzombie.png' style='width:50px;height:50px;'></td>";
+                    }
+                    if(this.tabla[DibColumnas][DibFilas]=="V"){
+                        dibujarTabla += "<td> <img src='Visuals/1up.png' style='width:50px;height:50px;'></td>";
+                    }
                 }
             }
             dibujarTabla += "</tr>";
@@ -118,7 +135,24 @@ iniciarPartida: function (newMedida){
         let dibujarTabla = "<table>";
         for (let DibColumnas = 0; DibColumnas < this.medida; DibColumnas++){
             for (let DibFilas = 0; DibFilas < this.medida; DibFilas++){
-                dibujarTabla += "<td> " + this.tabla[DibColumnas][DibFilas] + " </td>";
+                if(this.tabla[DibColumnas][DibFilas]=="g" || this.tabla[DibColumnas][DibFilas]=="G"){
+                    dibujarTabla += "<td> <img src='Visuals/grass.jpg' style='width:50px;height:50px;'></td>";
+                }
+                if(this.tabla[DibColumnas][DibFilas]=="z" || this.tabla[DibColumnas][DibFilas]=="Z"){
+                    dibujarTabla += "<td> <img src='Visuals/zombie.png' style='width:50px;height:50px;'></td>";
+                }
+                if(this.tabla[DibColumnas][DibFilas]=="e" || this.tabla[DibColumnas][DibFilas]=="E"){
+                    dibujarTabla += "<td> <img src='Visuals/estrella.png' style='width:50px;height:50px;'></td>";
+                }
+                if(this.tabla[DibColumnas][DibFilas]=="d" || this.tabla[DibColumnas][DibFilas]=="D"){
+                    dibujarTabla += "<td> <img src='Visuals/x2.png' style='width:50px;height:50px;'></td>";
+                }
+                if(this.tabla[DibColumnas][DibFilas]=="m" || this.tabla[DibColumnas][DibFilas]=="M"){
+                    dibujarTabla += "<td> <img src='Visuals/deadzombie.png' style='width:50px;height:50px;'></td>";
+                }
+                if(this.tabla[DibColumnas][DibFilas]=="v" || this.tabla[DibColumnas][DibFilas]=="V"){
+                    dibujarTabla += "<td> <img src='Visuals/1up.png' style='width:50px;height:50px;'></td>";
+                }
             }
             dibujarTabla += "</tr>";
         }
